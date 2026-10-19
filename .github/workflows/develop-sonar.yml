@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   sonar:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Run tests and Sonar scan
     runs-on: ledgerhq-device-sdk
     steps:

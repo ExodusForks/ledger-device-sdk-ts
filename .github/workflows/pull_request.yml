@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   auto-assign:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Auto assign
     runs-on: ubuntu-22.04
     permissions:
@@ -27,6 +28,7 @@ jobs:
       - uses: toshimaru/auto-author-assign@3e19bfc990cb1cf0589dce95e9f75289bb1e22de # v3.0.3
 
   detect-changes:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Detect changed packages
     runs-on: ubuntu-22.04
     outputs:
@@ -89,6 +91,7 @@ jobs:
           echo "clear-signing groups: ${scenarios:-<none>}"
 
   setup:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Setup toolchain and dependencies
     runs-on: ${{ !github.event.pull_request.head.repo.fork && 'ledgerhq-device-sdk' || 'ubuntu-22.04' }}
     steps:
@@ -97,6 +100,7 @@ jobs:
       - uses: LedgerHQ/device-sdk-ts/.github/actions/setup-with-cache-composite@69b58c7fd3370397e82e73047b1441667bd46386
 
   danger:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Run Danger check
     needs: [setup]
     runs-on: ubuntu-22.04
@@ -114,6 +118,7 @@ jobs:
         run: pnpm danger:ci
 
   checks:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Checks (build, prettier, lint, typecheck, test)
     # Single job running each Turbo task as its own step. Because everything
     # runs on one runner, build output stays on disk between steps, so there is
@@ -254,7 +259,7 @@ jobs:
     # only needs to require "Run health check". `!cancelled()` is what lets a
     # skipped cs-tester through instead of skipping this too.
     needs: [checks, cs-tester]
-    if: ${{ !cancelled() }}
+    if: ${{ github.repository == 'LedgerHQ/device-sdk-ts' && (!cancelled()) }}
     runs-on: ubuntu-22.04
     steps:
       - name: Check results
@@ -269,7 +274,7 @@ jobs:
     # Runs alongside `checks`, not after it: the composite builds its own
     # dependency chain, so it never consumed anything `checks` produced.
     needs: [setup, detect-changes]
-    if: needs.detect-changes.outputs.cs-scenarios != ''
+    if: ${{ github.repository == 'LedgerHQ/device-sdk-ts' && (needs.detect-changes.outputs.cs-scenarios != '') }}
     name: Clear Signing Test (${{ matrix.device }})
     runs-on: ${{ !github.event.pull_request.head.repo.fork && 'ledgerhq-device-sdk' || 'ubuntu-22.04' }}
     permissions:

@@ -28,6 +28,7 @@ permissions:
 
 jobs:
   public-runner:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Build and Attest Snapshot Packages
     # npmjs requires attestation to be generated on a public runner
     runs-on: ubuntu-latest
@@ -75,6 +76,7 @@ jobs:
           if-no-files-found: error
 
   ledger-runner:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Publish Snapshot to JFrog
     needs: public-runner
     # JFrog is accessible only from a ledger private runner

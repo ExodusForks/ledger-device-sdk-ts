@@ -9,6 +9,7 @@ on:
 
 jobs:
   generate-sbom:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Generate SBOM
     runs-on: ubuntu-22.04
     steps:

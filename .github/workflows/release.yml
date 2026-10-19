@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   public-runner:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Build and Attest Release Packages
     # npmjs requires attestation to be generated on a public runner
     runs-on: ubuntu-latest
@@ -60,6 +61,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   ledger-runner:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Publish Release to JFrog
     environment: Production
     needs: public-runner

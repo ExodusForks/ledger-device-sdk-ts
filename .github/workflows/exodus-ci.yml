@@ -1,0 +1,60 @@
+name: Exodus Checks
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+  merge_group:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      dist-tag:
+        type: string
+        default: next
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exodus-checks-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  checks:
+    name: SDK checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-exodus
+      - name: Check release tooling
+        run: |
+          pnpm exec prettier --check scripts .github/workflows/exodus-*.yml .github/actions/setup-exodus/action.yml exodus-release.json
+          pnpm exec eslint --config scripts/eslint.config.mjs scripts
+          node --test scripts/*.test.mjs
+      - name: Build libraries
+        run: pnpm exec turbo run build --filter='./packages/**' --concurrency=2
+      - name: Check formatting
+        run: pnpm exec turbo run prettier --filter='./packages/**' --concurrency=2
+      - name: Lint and check types
+        run: pnpm exec turbo run lint typecheck --filter='./packages/**' --concurrency=2
+      - name: Test libraries
+        run: pnpm exec turbo run test --filter='./packages/**' --concurrency=2 -- --maxWorkers=2 --minWorkers=1
+      - name: Build Exodus release packages
+        run: node scripts/exodus-release.mjs
+      - name: Validate published package entry points
+        run: node scripts/check-exodus-packages.mjs
+      - name: Preview npm publication
+        env:
+          DIST_TAG: ${{ inputs.dist-tag || 'next' }}
+        run: node scripts/publish-exodus.mjs
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: exodus-npm-packages
+          path: .exodus-release/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7

@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   cs-tester:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Solana Clear Signing Test (${{ matrix.device }})
     runs-on: ledgerhq-device-sdk
     permissions:
@@ -42,7 +43,7 @@ jobs:
   notify:
     name: Notify Slack
     needs: [cs-tester]
-    if: always()
+    if: ${{ github.repository == 'LedgerHQ/device-sdk-ts' && (always()) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
