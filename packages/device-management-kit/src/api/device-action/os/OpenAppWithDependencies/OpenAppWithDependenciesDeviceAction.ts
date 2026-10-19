@@ -1,5 +1,5 @@
+import { assign, setup } from "@exodus/device-reactivity/state-machine";
 import { Left, Right } from "purify-ts";
-import { assign, setup } from "xstate";
 
 import { type InternalApi } from "@api/device-action/DeviceAction";
 import { UserInteractionRequired } from "@api/device-action/model/UserInteractionRequired";

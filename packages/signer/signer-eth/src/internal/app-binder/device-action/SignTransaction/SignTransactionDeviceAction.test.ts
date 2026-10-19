@@ -1,4 +1,5 @@
 /* eslint @typescript-eslint/consistent-type-imports: 0 */
+import { lastValueFrom, Observable } from "@exodus/device-reactivity";
 import {
   ClearSignContextType,
   type ContextModule,
@@ -18,7 +19,6 @@ import {
 } from "@ledgerhq/device-management-kit";
 import { Transaction } from "ethers";
 import { Right } from "purify-ts";
-import { lastValueFrom, Observable } from "rxjs";
 
 import {
   SignTransactionDAError,

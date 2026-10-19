@@ -1,5 +1,12 @@
+import {
+  from,
+  map,
+  merge,
+  Observable,
+  of,
+  scan,
+} from "@exodus/device-reactivity";
 import { inject, injectable } from "inversify";
-import { from, map, merge, Observable, of, scan } from "rxjs";
 
 import { DeviceModel } from "@api/device/DeviceModel";
 import { LoggerPublisherService } from "@api/logger-publisher/service/LoggerPublisherService";

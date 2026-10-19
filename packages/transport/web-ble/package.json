@@ -34,7 +34,8 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "purify-ts": "catalog:"
+    "purify-ts": "catalog:",
+    "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
@@ -44,11 +45,9 @@
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@types/web-bluetooth": "catalog:",
-    "rxjs": "catalog:",
     "ts-node": "catalog:"
   },
   "peerDependencies": {
-    "@ledgerhq/device-management-kit": "workspace:^",
-    "rxjs": "catalog:"
+    "@ledgerhq/device-management-kit": "workspace:^"
   }
 }

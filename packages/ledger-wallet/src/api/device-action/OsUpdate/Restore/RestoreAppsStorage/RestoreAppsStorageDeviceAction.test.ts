@@ -1,10 +1,10 @@
+import { assign, createMachine } from "@exodus/device-reactivity/state-machine";
 import {
   DeviceActionStatus,
   UnknownDAError,
   UserInteractionRequired,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Right } from "purify-ts";
-import { assign, createMachine } from "xstate";
 
 import { makeDeviceActionInternalApiMock } from "@api/device-action/__test-utils__/makeInternalApi";
 import { testDeviceActionStates } from "@api/device-action/__test-utils__/testDeviceActionStates";

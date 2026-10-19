@@ -1,6 +1,11 @@
+import { type Observable } from "@exodus/device-reactivity";
+import {
+  assign,
+  fromObservable,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
 import { type Either, Left, Right } from "purify-ts";
-import { type Observable } from "rxjs";
-import { assign, fromObservable, fromPromise, setup } from "xstate";
 
 import { isSuccessCommandResult } from "@api/command/model/CommandResult";
 import {

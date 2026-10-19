@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/consistent-type-imports:0 */
+import { assign, createMachine } from "@exodus/device-reactivity/state-machine";
 import { Left, Right } from "purify-ts";
 import { type Mock } from "vitest";
-import { assign, createMachine } from "xstate";
 
 import { type Apdu } from "@api/apdu/model/Apdu";
 import { ApduBuilder } from "@api/apdu/utils/ApduBuilder";

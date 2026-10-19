@@ -1,8 +1,8 @@
+import { from } from "@exodus/device-reactivity";
 import {
   DeviceActionStatus,
   type ExecuteDeviceActionReturnType,
 } from "@ledgerhq/device-management-kit";
-import { from } from "rxjs";
 import { vi } from "vitest";
 
 import {

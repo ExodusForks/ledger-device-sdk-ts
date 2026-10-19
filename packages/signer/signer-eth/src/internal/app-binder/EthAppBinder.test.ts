@@ -1,3 +1,4 @@
+import { from } from "@exodus/device-reactivity";
 import { type ContextModule } from "@ledgerhq/context-module";
 import {
   type DeviceActionState,
@@ -7,7 +8,6 @@ import {
 import { DeviceActionStatus } from "@ledgerhq/device-management-kit";
 import { UserInteractionRequired } from "@ledgerhq/device-management-kit";
 import { Transaction } from "ethers";
-import { from } from "rxjs";
 
 import {
   type GetAddressDAError,

@@ -43,7 +43,7 @@
     "inversify": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
-    "xstate": "catalog:"
+    "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
@@ -53,8 +53,7 @@
     "@ledgerhq/prettier-config-dsdk": "workspace:*",
     "@ledgerhq/tsconfig-dsdk": "workspace:*",
     "@ledgerhq/vitest-config-dmk": "workspace:*",
-    "@solana/rpc-types": "catalog:",
-    "rxjs": "catalog:"
+    "@solana/rpc-types": "catalog:"
   },
   "peerDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",

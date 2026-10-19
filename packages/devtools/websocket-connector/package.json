@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@ledgerhq/device-management-kit-devtools-websocket-common": "workspace:^",
-    "rxjs": "catalog:"
+    "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",

@@ -40,21 +40,17 @@
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
     "semver": "catalog:",
-    "xstate": "catalog:",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/crypto": "catalog:"
   },
-  "peerDependencies": {
-    "rxjs": "catalog:"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@ledgerhq/ldmk-tool": "workspace:^",
     "@ledgerhq/eslint-config-dsdk": "workspace:^",
     "@ledgerhq/prettier-config-dsdk": "workspace:^",
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
     "@ledgerhq/vitest-config-dmk": "workspace:^",
-    "@statelyai/inspect": "catalog:",
     "@types/semver": "catalog:",
-    "rxjs": "catalog:",
     "ts-node": "catalog:"
   }
 }

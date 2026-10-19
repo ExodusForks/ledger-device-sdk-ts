@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "@exodus/device-reactivity";
 import { expect, type Mock } from "vitest";
 
 import { type DeviceSessionState } from "@api/device-session/DeviceSessionState";

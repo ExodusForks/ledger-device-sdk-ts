@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   type DeviceActionStateMachine,
   type InternalApi,
   isDashboardName,
@@ -7,7 +12,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import { getOsVersion } from "@api/device-action/OsUpdate/Shared/Substeps/GetOsVersion";
 import { goToDashboard } from "@api/device-action/OsUpdate/Shared/Substeps/GoToDashboard";

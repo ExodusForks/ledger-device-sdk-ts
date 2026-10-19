@@ -1,4 +1,5 @@
 /* eslint @typescript-eslint/consistent-type-imports: off */
+import { lastValueFrom, toArray } from "@exodus/device-reactivity";
 import {
   type ApduReceiverServiceFactory,
   type ApduResponse,
@@ -20,7 +21,6 @@ import {
 } from "@ledgerhq/device-management-kit";
 import type { Device as NodeHIDDevice } from "node-hid";
 import { Left, Right } from "purify-ts";
-import { lastValueFrom, toArray } from "rxjs";
 
 import { RECONNECT_DEVICE_TIMEOUT } from "@api/data/NodeHidConfig";
 import { nodeHidDeviceStubBuilder } from "@api/model/HIDDevice.stub";

@@ -1,8 +1,8 @@
+import { lastValueFrom, Observable, toArray } from "@exodus/device-reactivity";
 import {
   DeviceActionStatus,
   type DeviceManagementKit,
 } from "@ledgerhq/device-management-kit";
-import { lastValueFrom, Observable, toArray } from "rxjs";
 import { describe, expect, it, vi } from "vitest";
 
 import { DefaultSolanaTools } from "./DefaultSolanaTools";

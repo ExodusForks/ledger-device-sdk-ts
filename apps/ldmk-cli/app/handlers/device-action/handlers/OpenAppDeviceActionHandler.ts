@@ -1,5 +1,6 @@
 import "zx/globals";
 
+import { Observable } from "@exodus/device-reactivity";
 import { input } from "@inquirer/prompts";
 import { appTypes } from "@ldmk/app/di/app.types";
 import {
@@ -16,7 +17,6 @@ import {
 } from "@ledgerhq/device-management-kit";
 import { DeviceManagementKit } from "@ledgerhq/device-management-kit";
 import { inject, injectable } from "inversify";
-import { Observable } from "rxjs";
 
 import { BaseDeviceActionHandler } from "./BaseDeviceActionHandler";
 

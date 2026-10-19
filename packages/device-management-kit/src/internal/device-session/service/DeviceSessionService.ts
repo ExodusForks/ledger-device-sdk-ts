@@ -1,5 +1,5 @@
+import { type Observable } from "@exodus/device-reactivity";
 import { type Either } from "purify-ts";
-import { type Observable } from "rxjs";
 
 import { type DmkError } from "@api/Error";
 import { type DeviceId } from "@api/types";

@@ -47,7 +47,8 @@
     "test:coverage": "vitest run --coverage --passWithNoTests"
   },
   "dependencies": {
-    "purify-ts": "catalog:"
+    "purify-ts": "catalog:",
+    "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
@@ -56,12 +57,10 @@
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@ledgerhq/prettier-config-dsdk": "workspace:^",
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
-    "react-native": "catalog:",
-    "rxjs": "catalog:"
+    "react-native": "catalog:"
   },
   "peerDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
-    "react-native": ">0.74.1",
-    "rxjs": "catalog:"
+    "react-native": ">0.74.1"
   }
 }

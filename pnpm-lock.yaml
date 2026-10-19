@@ -39,6 +39,9 @@ catalogs:
     '@exodus/crypto':
       specifier: 1.0.0-rc.34
       version: 1.0.0-rc.34
+    '@exodus/device-reactivity':
+      specifier: 0.1.1
+      version: 0.1.1
     '@exodus/ethereumjs':
       specifier: 1.12.0
       version: 1.12.0
@@ -126,9 +129,6 @@ catalogs:
     '@solana/web3.js':
       specifier: ^1.98.2
       version: 1.98.2
-    '@statelyai/inspect':
-      specifier: ^0.4.0
-      version: 0.4.0
     '@tsconfig/react-native':
       specifier: ^3.0.5
       version: 3.0.5
@@ -327,9 +327,6 @@ catalogs:
     rozenite:
       specifier: 1.1.0
       version: 1.1.0
-    rxjs:
-      specifier: 7.8.2
-      version: 7.8.2
     semver:
       specifier: 7.7.4
       version: 7.7.4
@@ -372,9 +369,6 @@ catalogs:
     ws:
       specifier: ^8.18.0
       version: 8.18.0
-    xstate:
-      specifier: 5.19.2
-      version: 5.19.2
     zx:
       specifier: 8.5.3
       version: 8.5.3
@@ -471,6 +465,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/cal-interceptor':
         specifier: workspace:^
         version: link:../../packages/tools/cal-interceptor
@@ -510,9 +507,6 @@ importers:
       inversify:
         specifier: 'catalog:'
         version: 7.5.1(reflect-metadata@0.2.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       semver:
         specifier: 'catalog:'
         version: 7.7.4
@@ -830,6 +824,9 @@ importers:
 
   apps/ldmk-cli:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@inquirer/prompts':
         specifier: 'catalog:'
         version: 7.3.3(@types/node@24.13.2)
@@ -860,9 +857,6 @@ importers:
       inversify:
         specifier: 'catalog:'
         version: 7.5.1(reflect-metadata@0.2.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       semver:
         specifier: 'catalog:'
         version: 7.7.4
@@ -891,6 +885,9 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
         version: link:../../packages/device-management-kit
@@ -954,9 +951,6 @@ importers:
       react-native-svg:
         specifier: 'catalog:'
         version: 15.11.1(react-native@0.76.6(@babel/core@7.28.3)(@babel/preset-env@7.26.9(@babel/core@7.28.3))(@react-native-community/cli-server-api@15.0.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@types/react@18.3.12)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       styled-components:
         specifier: 'catalog:'
         version: 5.3.11(@babel/core@7.28.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
@@ -1042,6 +1036,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/cal-interceptor':
         specifier: workspace:*
         version: link:../../packages/tools/cal-interceptor
@@ -1159,9 +1156,6 @@ importers:
       react-redux:
         specifier: 'catalog:'
         version: 9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       styled-components:
         specifier: 'catalog:'
         version: 5.3.11(@babel/core@7.28.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
@@ -1255,6 +1249,9 @@ importers:
 
   packages/device-contacts-kit:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer/signer-utils
@@ -1270,9 +1267,6 @@ importers:
       semver:
         specifier: 'catalog:'
         version: 7.7.4
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1295,9 +1289,6 @@ importers:
       '@types/semver':
         specifier: 'catalog:'
         version: 7.7.0
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -1307,6 +1298,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       inversify:
         specifier: 'catalog:'
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -1319,9 +1313,6 @@ importers:
       semver:
         specifier: 'catalog:'
         version: 7.7.4
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/eslint-config-dsdk':
         specifier: workspace:^
@@ -1338,20 +1329,18 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../config/vitest
-      '@statelyai/inspect':
-        specifier: 'catalog:'
-        version: 0.4.0(ws@8.21.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))(xstate@5.19.2)
       '@types/semver':
         specifier: 'catalog:'
         version: 7.7.0
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/devtools/core:
+    dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1371,21 +1360,18 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
 
   packages/devtools/rozenite:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-management-kit-devtools-ui':
         specifier: workspace:^
         version: link:../ui
       '@rozenite/plugin-bridge':
         specifier: 'catalog:'
         version: 1.1.0(react@18.3.1)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
     devDependencies:
       '@ledgerhq/device-management-kit-devtools-core':
         specifier: workspace:^
@@ -1420,6 +1406,9 @@ importers:
 
   packages/devtools/ui:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-mockserver-client':
         specifier: workspace:^
         version: link:../../mockserver-client
@@ -1441,9 +1430,6 @@ importers:
       react-resizable-panels:
         specifier: ^4.4.1
         version: 4.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       styled-components:
         specifier: 'catalog:'
         version: 5.3.11(@babel/core@7.28.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
@@ -1508,12 +1494,12 @@ importers:
 
   packages/devtools/websocket-connector:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-management-kit-devtools-websocket-common':
         specifier: workspace:^
         version: link:../websocket-common
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1539,12 +1525,12 @@ importers:
 
   packages/devtools/websocket-server:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-management-kit-devtools-websocket-common':
         specifier: workspace:^
         version: link:../websocket-common
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ws:
         specifier: 'catalog:'
         version: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -1576,6 +1562,9 @@ importers:
 
   packages/ledger-wallet:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer/signer-utils
@@ -1585,15 +1574,9 @@ importers:
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       semver:
         specifier: 'catalog:'
         version: 7.7.4
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1739,6 +1722,9 @@ importers:
 
   packages/signer/signer-aleo:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/context-module':
         specifier: workspace:^
         version: link:../context-module
@@ -1754,9 +1740,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1776,9 +1759,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -1788,6 +1768,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -1800,9 +1783,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1825,15 +1805,15 @@ importers:
       bitcoinjs-lib:
         specifier: 'catalog:'
         version: 6.1.6
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/signer/signer-concordium:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -1846,9 +1826,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/context-module':
         specifier: workspace:^
@@ -1871,15 +1848,15 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/signer/signer-cosmos:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -1892,9 +1869,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -1914,9 +1888,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -1929,6 +1900,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@exodus/ethereumjs':
         specifier: 'catalog:'
         version: 1.12.0
@@ -1953,9 +1927,6 @@ importers:
       semver:
         specifier: 'catalog:'
         version: 7.7.4
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/context-module':
         specifier: workspace:^
@@ -1984,15 +1955,15 @@ importers:
       ethers:
         specifier: 'catalog:'
         version: 6.14.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/signer/signer-hyperliquid:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/context-module':
         specifier: workspace:^
         version: link:../context-module
@@ -2008,9 +1979,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2030,15 +1998,15 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/signer/signer-icp:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -2051,9 +2019,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2073,15 +2038,15 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/signer/signer-polkadot:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -2094,9 +2059,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2116,9 +2078,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2128,6 +2087,9 @@ importers:
       '@exodus/bytes':
         specifier: 'catalog:'
         version: 1.16.0(@noble/hashes@2.0.1)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@exodus/solana-web3.js':
         specifier: 'catalog:'
         version: 1.63.1-exodus.9-rc7
@@ -2155,9 +2117,6 @@ importers:
       semver:
         specifier: 'catalog:'
         version: 7.7.4
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2183,9 +2142,6 @@ importers:
       '@types/semver':
         specifier: 'catalog:'
         version: 7.7.0
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2198,6 +2154,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-contacts-kit':
         specifier: workspace:^
         version: link:../../device-contacts-kit
@@ -2213,9 +2172,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/context-module':
         specifier: workspace:^
@@ -2238,9 +2194,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2278,6 +2231,9 @@ importers:
 
   packages/signer/signer-xrp:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -2290,9 +2246,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2312,9 +2265,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2324,6 +2274,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -2336,9 +2289,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2358,9 +2308,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2426,6 +2373,9 @@ importers:
 
   packages/tools/solana-tools:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@solana/addresses':
         specifier: 'catalog:'
         version: 8.3.0(typescript@5.9.2)
@@ -2447,9 +2397,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@ledgerhq/device-management-kit':
         specifier: workspace:^
@@ -2475,12 +2422,12 @@ importers:
       '@solana/rpc-types':
         specifier: 'catalog:'
         version: 8.3.0(typescript@5.9.2)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
 
   packages/transport/mockserver:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/device-mockserver-client':
         specifier: workspace:^
         version: link:../../mockserver-client
@@ -2506,9 +2453,6 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2518,6 +2462,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       node-hid:
         specifier: 'catalog:'
         version: 3.3.0
@@ -2549,9 +2496,6 @@ importers:
       '@types/w3c-web-hid':
         specifier: 'catalog:'
         version: 1.0.6
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2561,6 +2505,9 @@ importers:
       '@exodus/bytes':
         specifier: 'catalog:'
         version: 1.16.0(@noble/hashes@2.0.1)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2592,9 +2539,6 @@ importers:
       react-native-ble-plx:
         specifier: 'catalog:'
         version: 3.4.0(react-native@0.76.6(@babel/core@7.28.3)(@babel/preset-env@7.26.9(@babel/core@7.28.3))(@react-native-community/cli-server-api@15.0.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@types/react@18.3.12)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2604,6 +2548,9 @@ importers:
 
   packages/transport/rn-hid:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2629,12 +2576,12 @@ importers:
       react-native:
         specifier: 'catalog:'
         version: 0.76.6(@babel/core@7.28.3)(@babel/preset-env@7.26.9(@babel/core@7.28.3))(@react-native-community/cli-server-api@15.0.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@types/react@18.3.12)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
 
   packages/transport/speculos:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2657,15 +2604,15 @@ importers:
       '@ledgerhq/vitest-config-dmk':
         specifier: workspace:^
         version: link:../../config/vitest
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
 
   packages/transport/web-ble:
     dependencies:
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2691,9 +2638,6 @@ importers:
       '@types/web-bluetooth':
         specifier: 'catalog:'
         version: 0.0.20
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2703,6 +2647,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       purify-ts:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2728,9 +2675,6 @@ importers:
       '@types/w3c-web-hid':
         specifier: 'catalog:'
         version: 1.0.6
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@24.13.2)(typescript@5.9.2)
@@ -2740,6 +2684,9 @@ importers:
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
+      '@exodus/device-reactivity':
+        specifier: 'catalog:'
+        version: 0.1.1
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../../signer/signer-utils
@@ -2758,12 +2705,6 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
-      rxjs:
-        specifier: 'catalog:'
-        version: 7.8.2
-      xstate:
-        specifier: 'catalog:'
-        version: 5.19.2
     devDependencies:
       '@exodus/bytes':
         specifier: 'catalog:'
@@ -4679,6 +4620,10 @@ packages:
     resolution: {integrity: sha512-vatlfAs8fBJ7drzM1uRtN4y8Q6CZix6sDwRSyuTMPzPFYWo97Fw/no3yztiVBPtaoXnG57+hpiXu3diltOGsfg==}
     engines: {node: ^20.19.0 || >=22.13.0}
 
+  '@exodus/device-reactivity@0.1.1':
+    resolution: {integrity: sha512-99Yh3JaQ7mcib2hXckSCljoI5NndHJGOjVDpa6HToFRrEEqJ4FEaD1uYFKaqQ2AGn0U5B+MAG08p153lcIqaeQ==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+
   '@exodus/ethereumjs@1.12.0':
     resolution: {integrity: sha512-2vfh+0w1ach5lpov3/j/bxgqt3/DXUoRA9O0uN7MNe5DzIOHzNERYWcFJe9smm5of7aMJI9TIX6ig88hvb1ZLQ==}
 
@@ -5371,6 +5316,10 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@nx-js/observer-util@4.2.2':
+    resolution: {integrity: sha512-9OayX1xkdGjdnsDiO2YdaYJ6aMyCF7/NY4QWVgIgjSAZJ4OX2fD766Ts79hEzBscenQy2DCaSoY8VkguIMB1ZA==}
+    engines: {node: '>=6.5.0'}
 
   '@octokit/auth-token@4.0.0':
     resolution: {integrity: sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==}
@@ -6818,11 +6767,6 @@ packages:
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
-
-  '@statelyai/inspect@0.4.0':
-    resolution: {integrity: sha512-VxQldRlKYcu6rzLY83RSXVwMYexkH6hNx85B89YWYyXYWtNGaWHFCwV7a/Kz8FFPeUz8EKVAnyMOg2kNpn07wQ==}
-    peerDependencies:
-      xstate: ^5.5.1
 
   '@styled-system/background@5.1.2':
     resolution: {integrity: sha512-jtwH2C/U6ssuGSvwTN3ri/IyjdHb8W9X/g8Y0JLcrH02G+BW3OS8kZdHphF1/YyRklnrKrBT2ngwGUK6aqqV3A==}
@@ -8407,10 +8351,6 @@ packages:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
 
-  copy-anything@3.0.5:
-    resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
-    engines: {node: '>=12.13'}
-
   copy-to-clipboard@3.3.3:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
 
@@ -9263,10 +9203,6 @@ packages:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
 
-  event-target-shim@6.0.2:
-    resolution: {integrity: sha512-8q3LsZjRezbFZ2PN+uP+Q7pnHUMmAOziU2vA2OwoFaKIXxlxl38IylhSSgUorWu/rf4er67w0ikBqjBFk/pomA==}
-    engines: {node: '>=10.13.0'}
-
   eventemitter3@5.0.4:
     resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
 
@@ -9340,9 +9276,6 @@ packages:
 
   fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
-
-  fast-safe-stringify@2.1.1:
-    resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
   fast-stable-stringify@1.0.0:
     resolution: {integrity: sha512-wpYMUmFu5f00Sm0cj2pfivpmawLZ0NKdviQ4w9zJeR8JVtOpOxHmLaJuj0vxvGqMJQWyP/COUkF75/57OKyRag==}
@@ -10234,10 +10167,6 @@ packages:
   is-weakset@2.0.4:
     resolution: {integrity: sha512-mfcwb6IzQyOKTs84CQMrOwW4gQcaTOAWJ0zzJCl2WSPDrWk/OzDaImWFH3djXhb24g4eudZfLRozAvPGw4d9hQ==}
     engines: {node: '>= 0.4'}
-
-  is-what@4.1.16:
-    resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
-    engines: {node: '>=12.13'}
 
   is-windows@1.0.2:
     resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
@@ -11689,9 +11618,6 @@ packages:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
 
-  partysocket@0.0.25:
-    resolution: {integrity: sha512-1oCGA65fydX/FgdnsiBh68buOvfxuteoZVSb3Paci2kRp/7lhF0HyA8EDb5X/O6FxId1e+usPTQNRuzFEvkJbQ==}
-
   pascal-case@2.0.1:
     resolution: {integrity: sha512-qjS4s8rBOJa2Xm0jmxXiyh1+OFf6ekCWOvUaRgAQSktzlTbMotS0nmG9gyYAybCWBcuP4fsBeRCKNwGBnMe2OQ==}
 
@@ -12785,10 +12711,6 @@ packages:
     resolution: {integrity: sha512-x/+Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==}
     engines: {node: '>= 0.4'}
 
-  safe-stable-stringify@2.4.3:
-    resolution: {integrity: sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==}
-    engines: {node: '>=10'}
-
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
@@ -13206,10 +13128,6 @@ packages:
   sumchecker@3.0.1:
     resolution: {integrity: sha512-MvjXzkz/BOfyVDkG0oFOtBxHX2u3gKbMHIF/dXblZsgD3BWOFLmHovIpZY7BykJdAjcqRCBi1WYBNdEC9yI7vg==}
     engines: {node: '>= 8.0'}
-
-  superjson@1.13.3:
-    resolution: {integrity: sha512-mJiVjfd2vokfDxsQPOwJ/PtanO87LhpYY88ubI5dUB1Ab58Txbyje3+jpm+/83R/fevaq/107NNhtYBLuoTrFg==}
-    engines: {node: '>=10'}
 
   superstruct@0.14.2:
     resolution: {integrity: sha512-nPewA6m9mR3d6k7WkZ8N8zpTWfenFH3q9pA2PkuiZxINr9DKB2+40wEQf0ixn8VaGuJ78AB6iWOtStI+/4FKZQ==}
@@ -14127,9 +14045,6 @@ packages:
   xmldom-sre@0.1.31:
     resolution: {integrity: sha512-f9s+fUkX04BxQf+7mMWAp5zk61pciie+fFLC9hX9UVvCeJQfNHRHXpeo5MPcR0EUf57PYLdt+ZO4f3Ipk2oZUw==}
     engines: {node: '>=0.1'}
-
-  xstate@5.19.2:
-    resolution: {integrity: sha512-B8fL2aP0ogn5aviAXFzI5oZseAMqN00fg/TeDa3ZtatyDcViYLIfuQl4y8qmHCiKZgGEzmnTyNtNQL9oeJE2gw==}
 
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
@@ -16085,6 +16000,10 @@ snapshots:
       '@noble/hashes': 2.0.1
       pako: 1.0.11
 
+  '@exodus/device-reactivity@0.1.1':
+    dependencies:
+      '@nx-js/observer-util': 4.2.2
+
   '@exodus/ethereumjs@1.12.0':
     dependencies:
       '@exodus/crypto': 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)
@@ -16860,6 +16779,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  '@nx-js/observer-util@4.2.2': {}
 
   '@octokit/auth-token@4.0.0': {}
 
@@ -20652,10 +20573,6 @@ snapshots:
 
   cookie@0.7.2: {}
 
-  copy-anything@3.0.5:
-    dependencies:
-      is-what: 4.1.16
-
   copy-to-clipboard@3.3.3:
     dependencies:
       toggle-selection: 1.0.6
@@ -21825,8 +21742,6 @@ snapshots:
 
   event-target-shim@5.0.1: {}
 
-  event-target-shim@6.0.2: {}
-
   eventemitter3@5.0.4: {}
 
   events@3.3.0: {}
@@ -21971,8 +21886,6 @@ snapshots:
   fast-json-stable-stringify@2.1.0: {}
 
   fast-levenshtein@2.0.6: {}
-
-  fast-safe-stringify@2.1.1: {}
 
   fast-stable-stringify@1.0.0: {}
 
@@ -23019,8 +22932,6 @@ snapshots:
     dependencies:
       call-bound: 1.0.4
       get-intrinsic: 1.3.0
-
-  is-what@4.1.16: {}
 
   is-windows@1.0.2: {}
 
@@ -25095,10 +25006,6 @@ snapshots:
 
   parseurl@1.3.3: {}
 
-  partysocket@0.0.25:
-    dependencies:
-      event-target-shim: 6.0.2
-
   pascal-case@2.0.1:
     dependencies:
       camel-case: 3.0.0
@@ -26511,8 +26418,6 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  safe-stable-stringify@2.4.3: {}
-
   safer-buffer@2.1.2: {}
 
   sanitize-filename@1.6.3:
@@ -26988,10 +26893,6 @@ snapshots:
       debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
-
-  superjson@1.13.3:
-    dependencies:
-      copy-anything: 3.0.5
 
   superstruct@0.14.2: {}
 
@@ -27997,8 +27898,6 @@ snapshots:
   xmlchars@2.2.0: {}
 
   xmldom-sre@0.1.31: {}
-
-  xstate@5.19.2: {}
 
   xtend@4.0.2: {}
 

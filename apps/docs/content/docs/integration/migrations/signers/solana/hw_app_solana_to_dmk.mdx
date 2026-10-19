@@ -221,5 +221,5 @@ If your existing codebase is heavily promise-based, use the `toPromise` helper f
 | `6808` error during signing | Enable blind signing in the Solana app settings on the device                                     |
 | Observable never completes  | Ensure the device is unlocked and the Solana app is accessible                                    |
 | `Buffer` type errors        | Replace `Buffer` with `Uint8Array`, or use `Buffer.from(...)` since `Buffer` extends `Uint8Array` |
-| Missing `rxjs`              | Install it: `npm install rxjs` (it is a peer dependency of the DMK)                               |
+| Missing stream operators    | Install it: `npm install @exodus/device-reactivity` (import SDK operators from this package)      |
 | Discovery finds no devices  | Check that the browser supports WebHID and the device is connected via USB                        |

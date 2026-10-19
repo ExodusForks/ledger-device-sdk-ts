@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   type CommandResult,
   type DeviceActionStateMachine,
   type InternalApi,
@@ -15,7 +20,6 @@ import {
   type SolanaAppErrorCodes,
 } from "@ledgerhq/device-signer-kit-solana";
 import { Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   type GenerateTransactionDAError,

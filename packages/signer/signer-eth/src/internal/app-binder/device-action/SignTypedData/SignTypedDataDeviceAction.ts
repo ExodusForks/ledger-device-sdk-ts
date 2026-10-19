@@ -1,3 +1,9 @@
+import {
+  and,
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
 import type { ContextModule } from "@ledgerhq/context-module";
 import {
   ApplicationChecker,
@@ -14,7 +20,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Left, Nothing, Right } from "purify-ts";
-import { and, assign, fromPromise, setup } from "xstate";
 
 import {
   type GetAddressCommandArgs,

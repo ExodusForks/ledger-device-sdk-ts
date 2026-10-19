@@ -1,4 +1,7 @@
-import { type BehaviorSubject, type Subscription } from "rxjs";
+import {
+  type BehaviorSubject,
+  type Subscription,
+} from "@exodus/device-reactivity";
 
 import { type DeviceSessionState } from "@api/device-session/DeviceSessionState";
 import {

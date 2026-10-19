@@ -12,6 +12,7 @@ patchedDependencies:
   '@exodus/crypto@1.0.0-rc.34': patches/@exodus__crypto@1.0.0-rc.34.patch
 
 catalog:
+  '@exodus/device-reactivity': 0.1.1
   '@exodus/bytes': 1.16.0
   '@exodus/crypto': 1.0.0-rc.34
   '@exodus/ethereumjs': 1.12.0
@@ -53,7 +54,6 @@ catalog:
   '@solana/rpc-types': ^8.3.0
   '@solana/transaction-messages': ^8.3.0
   '@solana/web3.js': ^1.98.2
-  '@statelyai/inspect': ^0.4.0
   '@tsconfig/react-native': ^3.0.5
   '@tsconfig/recommended': ^1.0.8
   '@types/express': '*'
@@ -122,7 +122,6 @@ catalog:
   reflect-metadata: 0.2.2
   rimraf: ^6.0.1
   rozenite: 1.1.0
-  rxjs: 7.8.2
   semver: 7.7.4
   styled-components: ^5.3.11
   tailwind-merge: ^1.14.0
@@ -140,7 +139,6 @@ catalog:
   vitest: 3.2.6
   vitest-react-native: ^0.1.5
   ws: ^8.18.0
-  xstate: 5.19.2
   zx: 8.5.3
 
 onlyBuiltDependencies:

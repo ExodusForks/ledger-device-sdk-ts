@@ -8,6 +8,19 @@ import {
   type Subscription as BleSubscription,
 } from "react-native-ble-plx";
 import {
+  BehaviorSubject,
+  defer,
+  finalize,
+  first,
+  from,
+  type Observable,
+  retry,
+  type Subscription,
+  switchMap,
+  tap,
+  throttleTime,
+} from "@exodus/device-reactivity";
+import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
   type BleDeviceInfos,
@@ -28,19 +41,6 @@ import {
   UnknownDeviceError,
 } from "@ledgerhq/device-management-kit";
 import { Either, EitherAsync, Left, Maybe, Right } from "purify-ts";
-import {
-  BehaviorSubject,
-  defer,
-  finalize,
-  first,
-  from,
-  type Observable,
-  retry,
-  type Subscription,
-  switchMap,
-  tap,
-  throttleTime,
-} from "rxjs";
 
 import {
   BLE_DISCONNECT_TIMEOUT_ANDROID,

@@ -1,4 +1,10 @@
 import {
+  BehaviorSubject,
+  from,
+  type Observable,
+} from "@exodus/device-reactivity";
+import { switchMap } from "@exodus/device-reactivity";
+import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
   type ConnectError,
@@ -18,8 +24,6 @@ import {
   UnknownDeviceError,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Right } from "purify-ts";
-import { BehaviorSubject, from, type Observable } from "rxjs";
-import { switchMap } from "rxjs/operators";
 
 import {
   ADVERTISING_DELAY,

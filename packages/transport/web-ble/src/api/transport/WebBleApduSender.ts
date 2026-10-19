@@ -1,3 +1,4 @@
+import { BehaviorSubject } from "@exodus/device-reactivity";
 import {
   type ApduReceiverService,
   type ApduReceiverServiceFactory,
@@ -14,7 +15,6 @@ import {
   SendApduTimeoutError,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Maybe, Right } from "purify-ts";
-import { BehaviorSubject } from "rxjs";
 
 export type WebBleApduSenderDependencies = {
   writeCharacteristic: BluetoothRemoteGATTCharacteristic;

@@ -1,6 +1,6 @@
+import { assign, createMachine } from "@exodus/device-reactivity/state-machine";
 import { Left, Right } from "purify-ts";
 import { type Mock } from "vitest";
-import { assign, createMachine } from "xstate";
 
 import { type GetAppAndVersionResponse } from "@api/command/os/GetAppAndVersionCommand";
 import { UserInteractionRequired } from "@api/device-action/model/UserInteractionRequired";

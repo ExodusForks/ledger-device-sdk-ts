@@ -1,3 +1,4 @@
+import { Subscription } from "@exodus/device-reactivity";
 import {
   type DeviceId,
   type DeviceSessionId,
@@ -5,7 +6,6 @@ import {
   type DiscoveredDevice,
 } from "@ledgerhq/device-management-kit";
 import { injectable } from "inversify";
-import { Subscription } from "rxjs";
 
 @injectable()
 export class AppState {

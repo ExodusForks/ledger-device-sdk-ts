@@ -2,6 +2,11 @@
 import { type Platform } from "react-native";
 import { BleManager, type Device, State } from "react-native-ble-plx";
 import {
+  firstValueFrom,
+  Subject,
+  Subscription,
+} from "@exodus/device-reactivity";
+import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
   BleDeviceInfos,
@@ -17,7 +22,6 @@ import {
   type TransportDiscoveredDevice,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
-import { firstValueFrom, Subject, Subscription } from "rxjs";
 import { beforeEach, expect } from "vitest";
 
 import {

@@ -45,8 +45,7 @@
     "inversify": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
-    "rxjs": "catalog:",
-    "xstate": "catalog:",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/crypto": "catalog:"
   },
   "devDependencies": {

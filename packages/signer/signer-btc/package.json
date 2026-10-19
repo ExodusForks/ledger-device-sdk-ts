@@ -45,7 +45,7 @@
     "inversify": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
-    "xstate": "catalog:",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/crypto": "catalog:"
   },
   "devDependencies": {
@@ -56,7 +56,6 @@
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "bitcoinjs-lib": "catalog:",
-    "rxjs": "catalog:",
     "ts-node": "catalog:"
   },
   "peerDependencies": {

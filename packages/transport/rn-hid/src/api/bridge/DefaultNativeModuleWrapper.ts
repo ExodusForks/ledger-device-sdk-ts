@@ -1,11 +1,11 @@
 import { NativeEventEmitter } from "react-native";
+import { Observable } from "@exodus/device-reactivity";
 import {
   type DeviceModelDataSource,
   type LogParams,
   type SendApduResult,
   type TransportDiscoveredDevice,
 } from "@ledgerhq/device-management-kit";
-import { Observable } from "rxjs";
 
 import { uint8ArrayToBase64 } from "@api/helpers/base64Utils";
 import { type NativeModuleWrapper } from "@api/transport/NativeModuleWrapper";

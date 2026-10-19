@@ -1,3 +1,8 @@
+import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
 import { type EthereumClearSignContextSuccess } from "@ledgerhq/context-module";
 import {
   type DeviceActionStateMachine,
@@ -9,7 +14,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   type VerifySafeAddressDAError,

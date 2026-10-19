@@ -1,6 +1,6 @@
+import { Subject } from "@exodus/device-reactivity";
 import { DeviceActionStatus } from "@ledgerhq/device-management-kit";
 import { type SignerSolana } from "@ledgerhq/device-signer-kit-solana";
-import { Subject } from "rxjs";
 import { describe, expect, it, vi } from "vitest";
 
 import { SignableInputKind } from "@root/src/domain/models/SignableInputKind";

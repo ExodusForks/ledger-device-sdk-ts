@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   DEFAULT_UNLOCK_TIMEOUT_MS,
   type DeviceActionStateMachine,
   GetBackgroundImageSizeCommand,
@@ -11,7 +16,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   CommitBackgroundImageCommand,

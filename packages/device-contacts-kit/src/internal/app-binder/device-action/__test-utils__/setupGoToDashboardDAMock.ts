@@ -1,10 +1,10 @@
+import { assign, createMachine } from "@exodus/device-reactivity/state-machine";
 import {
   GoToDashboardDeviceAction,
   UserInteractionRequired,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
 import { type Mock } from "vitest";
-import { assign, createMachine } from "xstate";
 
 /**
  * Mock GoToDashboardDeviceAction to resolve immediately with either success

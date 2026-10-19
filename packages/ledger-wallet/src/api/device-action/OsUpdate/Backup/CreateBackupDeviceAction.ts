@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   bufferToHexaString,
   type DeviceActionStateMachine,
   type InternalApi,
@@ -8,7 +13,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import { isCustomLockScreenSupported } from "@api/customLockScreenUtils/screenSpecs";
 import { backupAppsStorage } from "@api/device-action/OsUpdate/Backup/Substeps/BackupAppsStorage";

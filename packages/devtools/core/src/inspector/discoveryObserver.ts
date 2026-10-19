@@ -1,8 +1,8 @@
+import { type Subscription } from "@exodus/device-reactivity";
 import {
   type DeviceManagementKit,
   type DiscoveredDevice,
 } from "@ledgerhq/device-management-kit";
-import { type Subscription } from "rxjs";
 
 import { type Connector } from "../types";
 import { INSPECTOR_MESSAGE_TYPES } from "./constants";

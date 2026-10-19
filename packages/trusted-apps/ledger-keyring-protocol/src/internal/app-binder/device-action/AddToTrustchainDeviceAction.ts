@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   type DeviceActionStateMachine,
   hexaStringToBuffer,
   type InternalApi,
@@ -7,7 +12,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { type Either, EitherAsync, Left, Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   type AddToTrustchainDAError,

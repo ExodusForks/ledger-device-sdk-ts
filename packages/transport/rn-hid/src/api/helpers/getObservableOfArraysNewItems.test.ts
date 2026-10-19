@@ -1,4 +1,4 @@
-import { from } from "rxjs";
+import { from } from "@exodus/device-reactivity";
 
 import { getObservableOfArraysNewItems } from "./getObservableOfArraysNewItems";
 

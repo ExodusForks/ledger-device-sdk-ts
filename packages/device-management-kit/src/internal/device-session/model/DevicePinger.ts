@@ -1,4 +1,4 @@
-import { type Subscription } from "rxjs";
+import { type Subscription } from "@exodus/device-reactivity";
 
 import { DeviceModelId } from "@api/device/DeviceModel";
 import {

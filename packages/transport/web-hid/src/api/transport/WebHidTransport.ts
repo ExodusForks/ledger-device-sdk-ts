@@ -1,5 +1,12 @@
 import { randomUUID as uuid } from "@exodus/crypto/randomUUID";
 import {
+  BehaviorSubject,
+  from,
+  map,
+  type Observable,
+  switchMap,
+} from "@exodus/device-reactivity";
+import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
   type ConnectError,
@@ -24,7 +31,6 @@ import {
   UnknownDeviceError,
 } from "@ledgerhq/device-management-kit";
 import { type Either, EitherAsync, Left, Maybe, Right } from "purify-ts";
-import { BehaviorSubject, from, map, type Observable, switchMap } from "rxjs";
 
 import { RECONNECT_DEVICE_TIMEOUT } from "@api/data/WebHidConfig";
 import { WebHidTransportNotSupportedError } from "@api/model/Errors";

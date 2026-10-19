@@ -1,3 +1,4 @@
+import { from, type Observable } from "@exodus/device-reactivity";
 import {
   ApduParser,
   type ApduResponse,
@@ -20,7 +21,6 @@ import {
   type TransportIdentifier,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Right } from "purify-ts";
-import { from, type Observable } from "rxjs";
 
 import { HttpSpeculosDatasource } from "@internal/datasource/HttpSpeculosDatasource";
 import { type SpeculosDatasource } from "@internal/datasource/SpeculosDatasource";

@@ -38,6 +38,7 @@
     "node-hid": "catalog:",
     "purify-ts": "catalog:",
     "usb": "catalog:",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/crypto": "catalog:"
   },
   "devDependencies": {
@@ -48,11 +49,9 @@
     "@ledgerhq/tsconfig-dsdk": "workspace:*",
     "@ledgerhq/vitest-config-dmk": "workspace:*",
     "@types/w3c-web-hid": "catalog:",
-    "rxjs": "catalog:",
     "ts-node": "catalog:"
   },
   "peerDependencies": {
-    "@ledgerhq/device-management-kit": "workspace:^",
-    "rxjs": "catalog:"
+    "@ledgerhq/device-management-kit": "workspace:^"
   }
 }

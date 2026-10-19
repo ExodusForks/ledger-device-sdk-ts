@@ -1,10 +1,10 @@
+import { firstValueFrom, take, toArray } from "@exodus/device-reactivity";
 import {
   type LoggerPublisherService,
   OpeningConnectionError,
   type TransportConnectedDevice,
 } from "@ledgerhq/device-management-kit";
 import { type Device, MockClient } from "@ledgerhq/device-mockserver-client";
-import { firstValueFrom, take, toArray } from "rxjs";
 
 import {
   mockserverIdentifier,

@@ -35,9 +35,9 @@
     "commander": "catalog:",
     "ethers": "catalog:",
     "inversify": "catalog:",
-    "rxjs": "catalog:",
     "semver": "catalog:",
     "undici": "^8.8.0",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/crypto": "catalog:"
   },
   "devDependencies": {

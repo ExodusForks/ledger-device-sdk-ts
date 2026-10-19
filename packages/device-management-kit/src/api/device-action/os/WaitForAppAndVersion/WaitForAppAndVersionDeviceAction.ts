@@ -1,7 +1,19 @@
+import {
+  first,
+  from,
+  interval,
+  map,
+  type Observable,
+  switchMap,
+} from "@exodus/device-reactivity";
+import { timeout } from "@exodus/device-reactivity";
+import {
+  assign,
+  fromObservable,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
 import { Left, Right } from "purify-ts";
-import { first, from, interval, map, type Observable, switchMap } from "rxjs";
-import { timeout } from "rxjs/operators";
-import { assign, fromObservable, fromPromise, setup } from "xstate";
 
 import { isSuccessCommandResult } from "@api/command/model/CommandResult";
 import {

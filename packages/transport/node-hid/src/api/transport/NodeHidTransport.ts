@@ -1,5 +1,12 @@
 import { randomUUID as uuid } from "@exodus/crypto/randomUUID";
 import {
+  BehaviorSubject,
+  from,
+  map,
+  type Observable,
+  switchMap,
+} from "@exodus/device-reactivity";
+import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
   type ConnectError,
@@ -33,7 +40,6 @@ import {
   Nothing,
   Right,
 } from "purify-ts";
-import { BehaviorSubject, from, map, type Observable, switchMap } from "rxjs";
 import { type Device, usb } from "usb";
 
 import { RECONNECT_DEVICE_TIMEOUT } from "@api/data/NodeHidConfig";

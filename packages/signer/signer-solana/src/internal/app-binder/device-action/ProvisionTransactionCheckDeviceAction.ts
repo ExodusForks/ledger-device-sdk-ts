@@ -1,3 +1,8 @@
+import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
 import { type ContextModule } from "@ledgerhq/context-module";
 import {
   type CommandResult,
@@ -9,7 +14,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   type ProvisionTransactionCheckDAError,

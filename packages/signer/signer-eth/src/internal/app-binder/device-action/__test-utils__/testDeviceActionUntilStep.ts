@@ -1,4 +1,4 @@
-import { type Observable, type Subscription } from "rxjs";
+import { type Observable, type Subscription } from "@exodus/device-reactivity";
 
 export const executeUntilStep = async <T>(
   targetStep: number,

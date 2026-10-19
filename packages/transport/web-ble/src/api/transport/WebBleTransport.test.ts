@@ -31,6 +31,7 @@ vi.mock("@ledgerhq/device-management-kit", async () => {
   };
 });
 
+import { firstValueFrom } from "@exodus/device-reactivity";
 import {
   type ApduReceiverServiceFactory,
   type ApduSenderServiceFactory,
@@ -43,7 +44,6 @@ import {
   UnknownDeviceError,
 } from "@ledgerhq/device-management-kit";
 import { Left, Right } from "purify-ts";
-import { firstValueFrom } from "rxjs";
 
 import { bleDeviceStubBuilder } from "@api/model/BleDevice.stub";
 

@@ -1,5 +1,6 @@
 import "zx/globals";
 
+import { Observable } from "@exodus/device-reactivity";
 import { input } from "@inquirer/prompts";
 import { appTypes } from "@ldmk/app/di/app.types";
 import {
@@ -19,7 +20,6 @@ import {
   type TypedData,
 } from "@ledgerhq/device-signer-kit-ethereum";
 import { inject, injectable } from "inversify";
-import { Observable } from "rxjs";
 
 import { BaseEthSignerActionHandler } from "./BaseEthSignerActionHandler";
 

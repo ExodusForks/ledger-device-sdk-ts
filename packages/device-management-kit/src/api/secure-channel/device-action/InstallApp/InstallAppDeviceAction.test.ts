@@ -1,5 +1,5 @@
+import { of, throwError } from "@exodus/device-reactivity";
 import { Right } from "purify-ts";
-import { of, throwError } from "rxjs";
 
 import { CommandResultFactory } from "@api/command/model/CommandResult";
 import { type GetOsVersionResponse } from "@api/command/os/GetOsVersionCommand";

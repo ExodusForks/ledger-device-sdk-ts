@@ -1,5 +1,5 @@
+import { Observable } from "@exodus/device-reactivity";
 import { type Either } from "purify-ts";
-import { Observable } from "rxjs";
 
 import { CommandUtils } from "@api/command/utils/CommandUtils";
 import { type InternalApi } from "@api/device-action/DeviceAction";

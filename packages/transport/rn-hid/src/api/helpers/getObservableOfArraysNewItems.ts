@@ -1,4 +1,4 @@
-import { distinct, mergeMap, type Observable } from "rxjs";
+import { distinct, mergeMap, type Observable } from "@exodus/device-reactivity";
 
 /**
  * Returns an Observable that emits each unique item from arrays emitted by the source Observable.

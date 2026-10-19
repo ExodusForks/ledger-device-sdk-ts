@@ -1,16 +1,16 @@
 import {
-  DeviceActionStatus,
-  LoggerPublisherService,
-  UserInteractionRequired,
-} from "@ledgerhq/device-management-kit";
-import { inject, injectable } from "inversify";
-import {
   debounceTime,
   distinctUntilChanged,
   tap,
   throwError,
   timeout,
-} from "rxjs";
+} from "@exodus/device-reactivity";
+import {
+  DeviceActionStatus,
+  LoggerPublisherService,
+  UserInteractionRequired,
+} from "@ledgerhq/device-management-kit";
+import { inject, injectable } from "inversify";
 
 import { TYPES } from "@root/src/di/types";
 import { type ScreenReader } from "@root/src/domain/adapters/ScreenReader";

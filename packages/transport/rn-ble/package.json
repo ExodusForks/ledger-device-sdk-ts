@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "purify-ts": "catalog:",
+    "@exodus/device-reactivity": "catalog:",
     "@exodus/bytes": "catalog:"
   },
   "devDependencies": {
@@ -52,14 +53,12 @@
     "@vitejs/plugin-react": "catalog:",
     "react-native": "catalog:",
     "react-native-ble-plx": "catalog:",
-    "rxjs": "catalog:",
     "ts-node": "catalog:",
     "vitest-react-native": "catalog:"
   },
   "peerDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
     "react-native": ">0.74.1",
-    "react-native-ble-plx": "3.4.0",
-    "rxjs": "catalog:"
+    "react-native-ble-plx": "3.4.0"
   }
 }

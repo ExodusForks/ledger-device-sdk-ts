@@ -1,9 +1,9 @@
+import { of } from "@exodus/device-reactivity";
 import {
   DeviceActionStatus,
   DeviceSessionId,
 } from "@ledgerhq/device-management-kit";
 import { inject, injectable } from "inversify";
-import { of } from "rxjs";
 
 import { AuthenticateDAReturnType } from "@api/app-binder/AuthenticateDeviceActionTypes";
 import { KeyPair } from "@api/crypto/KeyPair";

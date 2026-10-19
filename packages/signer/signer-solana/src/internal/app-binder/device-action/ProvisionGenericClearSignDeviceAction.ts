@@ -1,4 +1,9 @@
 import {
+  assign,
+  fromPromise,
+  setup,
+} from "@exodus/device-reactivity/state-machine";
+import {
   type ClearSignContext,
   type ContextModule,
 } from "@ledgerhq/context-module";
@@ -12,7 +17,6 @@ import {
   XStateDeviceAction,
 } from "@ledgerhq/device-management-kit";
 import { Right } from "purify-ts";
-import { assign, fromPromise, setup } from "xstate";
 
 import {
   type ProvisionGenericClearSignDAError,

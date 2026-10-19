@@ -1,9 +1,9 @@
+import { from, type Observable } from "@exodus/device-reactivity";
 import type {
   LogParams,
   SendApduResult,
   TransportDiscoveredDevice,
 } from "@ledgerhq/device-management-kit";
-import { from, type Observable } from "rxjs";
 
 import { type NativeModuleWrapper } from "@api/transport/NativeModuleWrapper";
 import type {

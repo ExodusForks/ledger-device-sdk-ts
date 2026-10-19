@@ -5,6 +5,7 @@ import {
   type Subscription as BleCharacteristicSubscription,
 } from "react-native-ble-plx";
 import { fromBase64, toBase64 } from "@exodus/bytes/base64.js";
+import { BehaviorSubject, type Subscription } from "@exodus/device-reactivity";
 import {
   type ApduReceiverService,
   type ApduReceiverServiceFactory,
@@ -22,7 +23,6 @@ import {
   SendApduTimeoutError,
 } from "@ledgerhq/device-management-kit";
 import { type Either, Left, Maybe, Nothing, Right } from "purify-ts";
-import { BehaviorSubject, type Subscription } from "rxjs";
 
 import { PairingRefusedError, UnknownBleError } from "@api/model/Errors";
 

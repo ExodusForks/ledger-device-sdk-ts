@@ -1,5 +1,5 @@
+import { type Observable } from "@exodus/device-reactivity";
 import { type Either } from "purify-ts";
-import { type Observable } from "rxjs";
 
 import { type Command } from "@api/command/Command";
 import { type CommandResult } from "@api/command/model/CommandResult";

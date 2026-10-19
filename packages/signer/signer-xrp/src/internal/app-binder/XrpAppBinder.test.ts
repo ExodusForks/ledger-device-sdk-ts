@@ -1,3 +1,4 @@
+import { from } from "@exodus/device-reactivity";
 import {
   CallTaskInAppDeviceAction,
   CommandResultFactory,
@@ -12,7 +13,6 @@ import {
   UserInteractionRequired,
 } from "@ledgerhq/device-management-kit";
 import { Just } from "purify-ts";
-import { from } from "rxjs";
 import { vi } from "vitest";
 
 import {
