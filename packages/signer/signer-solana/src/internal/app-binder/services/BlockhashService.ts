@@ -1,7 +1,7 @@
 import { getCompiledTransactionMessageDecoder } from "@solana/transaction-messages";
-import { Connection } from "@solana/web3.js";
-import bs58 from "bs58";
 import { injectable } from "inversify";
+
+import { SolanaRpc } from "./utils/SolanaRpc";
 
 const PUBLIC_KEY_LENGTH = 32;
 const BLOCKHASH_LENGTH = 32;
@@ -196,9 +196,7 @@ export class BlockhashService {
    *
    * @returns The 32-byte blockhash as a raw `Uint8Array`.
    */
-  async fetchLatestBlockhash(rpcUrl: string): Promise<Uint8Array> {
-    const connection = new Connection(rpcUrl, { commitment: "finalized" });
-    const { blockhash } = await connection.getLatestBlockhash("finalized");
-    return bs58.decode(blockhash);
+  fetchLatestBlockhash(rpcUrl: string): Promise<Uint8Array> {
+    return new SolanaRpc(rpcUrl).getLatestBlockhash();
   }
 }
