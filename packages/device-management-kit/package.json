@@ -36,16 +36,12 @@
     "module:create": "pnpm hygen core-module with-prompt"
   },
   "dependencies": {
-    "@noble/hashes": "^1.8.0",
-    "@sentry/minimal": "catalog:",
     "inversify": "catalog:",
-    "isomorphic-ws": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
     "semver": "catalog:",
-    "uuid": "catalog:",
-    "ws": "catalog:",
-    "@exodus/device-reactivity": "catalog:"
+    "@exodus/device-reactivity": "catalog:",
+    "@exodus/crypto": "catalog:"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -55,8 +51,6 @@
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@types/semver": "catalog:",
-    "@types/uuid": "catalog:",
-    "@types/ws": "catalog:",
     "ts-node": "catalog:"
   }
 }

@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "@ledgerhq/device-mockserver-client": "workspace:^",
-    "@sentry/minimal": "catalog:",
     "purify-ts": "catalog:",
     "@exodus/device-reactivity": "catalog:"
   },

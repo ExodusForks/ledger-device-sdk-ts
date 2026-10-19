@@ -1,3 +1,4 @@
+import { randomUUID as uuidv4 } from "@exodus/crypto/randomUUID";
 import {
   BehaviorSubject,
   from,
@@ -6,7 +7,6 @@ import {
   timeout,
 } from "@exodus/device-reactivity";
 import { type Either } from "purify-ts";
-import { v4 as uuidv4 } from "uuid";
 
 import { type Command } from "@api/command/Command";
 import { type CommandResult } from "@api/command/model/CommandResult";

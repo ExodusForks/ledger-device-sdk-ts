@@ -1,3 +1,4 @@
+import { randomUUID as uuid } from "@exodus/crypto/randomUUID";
 import {
   BehaviorSubject,
   from,
@@ -40,7 +41,6 @@ import {
   Right,
 } from "purify-ts";
 import { type Device, usb } from "usb";
-import { v4 as uuid } from "uuid";
 
 import { RECONNECT_DEVICE_TIMEOUT } from "@api/data/NodeHidConfig";
 import { NodeHidTransportNotSupportedError } from "@api/model/Errors";

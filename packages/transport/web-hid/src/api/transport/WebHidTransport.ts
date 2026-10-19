@@ -1,3 +1,4 @@
+import { randomUUID as uuid } from "@exodus/crypto/randomUUID";
 import {
   BehaviorSubject,
   from,
@@ -29,9 +30,7 @@ import {
   type TransportIdentifier,
   UnknownDeviceError,
 } from "@ledgerhq/device-management-kit";
-import * as Sentry from "@sentry/minimal";
 import { type Either, EitherAsync, Left, Maybe, Right } from "purify-ts";
-import { v4 as uuid } from "uuid";
 
 import { RECONNECT_DEVICE_TIMEOUT } from "@api/data/WebHidConfig";
 import { WebHidTransportNotSupportedError } from "@api/model/Errors";
@@ -146,7 +145,6 @@ export class WebHidTransport implements Transport {
         this._logger.error(`getDevices: error getting devices`, {
           data: { error },
         });
-        Sentry.captureException(deviceError);
         throw deviceError;
       }
     });
@@ -217,7 +215,6 @@ export class WebHidTransport implements Transport {
         this._logger.error("Error while getting accessible device", {
           data: { error },
         });
-        Sentry.captureException(error);
       },
       Right: (hidDevices) => {
         this._transportDiscoveredDevices.next(
@@ -251,7 +248,6 @@ export class WebHidTransport implements Transport {
           this._logger.error(`promptDeviceAccess: error requesting device`, {
             data: { error },
           });
-          Sentry.captureException(deviceError);
           throw deviceError;
         }
 
@@ -290,7 +286,6 @@ export class WebHidTransport implements Transport {
             this._logger.error("Error while getting accessible device", {
               data: { error },
             });
-            Sentry.captureException(error);
             throw error;
           },
           Right: (hidDevices) => {

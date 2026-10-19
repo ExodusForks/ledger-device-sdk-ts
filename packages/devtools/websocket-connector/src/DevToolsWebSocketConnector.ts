@@ -9,7 +9,6 @@ import {
   parseSocketMessage,
   WEBSOCKET_MESSAGE_TYPES,
 } from "@ledgerhq/device-management-kit-devtools-websocket-common";
-import WebSocket from "isomorphic-ws";
 
 type Params = {
   url: string;
@@ -79,6 +78,10 @@ export class DevToolsWebSocketConnector implements Connector {
     if (this.destroyed) {
       throw new Error("Connector is destroyed");
     }
+    if (this.reconnectionTimeout) {
+      clearTimeout(this.reconnectionTimeout);
+      this.reconnectionTimeout = null;
+    }
     if (
       this.ws &&
       this.wsUrl === params.url &&
@@ -118,7 +121,9 @@ export class DevToolsWebSocketConnector implements Connector {
       this.log(
         "[DevToolsWebSocketConnector] Already connected to different URL, closing previous connection",
       );
-      this.ws.close();
+      const previous = this.ws;
+      this.ws = null;
+      previous.close();
     }
 
     this.log(
@@ -126,19 +131,18 @@ export class DevToolsWebSocketConnector implements Connector {
       params.url,
     );
 
-    this.ws = new WebSocket(params.url);
+    const socket = new WebSocket(params.url);
+    this.ws = socket;
     this.wsUrl = params.url;
 
     this.ws.onopen = () => {
+      if (this.ws !== socket) return;
       this.log("[DevToolsWebSocketConnector] WebSocket connected");
-      if (this.reconnectionTimeout) {
-        clearTimeout(this.reconnectionTimeout);
-        this.reconnectionTimeout = null;
-      }
       this.initialize();
     };
 
     this.ws.onclose = () => {
+      if (this.ws !== socket) return;
       this.log("[DevToolsWebSocketConnector] WebSocket closed");
       this.ws = null;
       this.wsUrl = null;
@@ -146,18 +150,16 @@ export class DevToolsWebSocketConnector implements Connector {
         this.messagesToSendSubscription.unsubscribe();
         this.messagesToSendSubscription = null;
       }
+      this.scheduleReconnect(params);
     };
 
     this.ws.onerror = (event) => {
+      if (this.ws !== socket) return;
       this.warn("[DevToolsWebSocketConnector] WebSocket error", event);
-      if (event.target.readyState === WebSocket.CLOSED) {
-        this.ws = null;
-        this.wsUrl = null;
-        this.scheduleReconnect(params);
-      }
     };
 
     this.ws.onmessage = (event) => {
+      if (this.ws !== socket) return;
       this.log(
         "[DevToolsWebSocketConnector] WebSocket message received",
         event.data,
@@ -256,13 +258,20 @@ export class DevToolsWebSocketConnector implements Connector {
 
   private destroy(): void {
     this.destroyed = true;
+    if (this.reconnectionTimeout) {
+      clearTimeout(this.reconnectionTimeout);
+      this.reconnectionTimeout = null;
+    }
     if (this.messagesToSendSubscription) {
       this.messagesToSendSubscription.unsubscribe();
       this.messagesToSendSubscription = null;
     }
     if (this.ws) {
+      const socket = this.ws;
+      this.ws = null;
+      this.wsUrl = null;
       try {
-        this.ws.close();
+        socket.close();
       } catch (error: unknown) {
         const errorMessage =
           error instanceof Error ? error.message : String(error);

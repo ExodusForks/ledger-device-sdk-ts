@@ -42,14 +42,14 @@
     "@ledgerhq/context-module": "workspace:^",
     "@ledgerhq/signer-utils": "workspace:^",
     "@solana/transaction-messages": "catalog:",
-    "@solana/web3.js": "catalog:",
-    "bs58": "catalog:",
     "buffer": "catalog:",
     "inversify": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
     "semver": "catalog:",
-    "@exodus/device-reactivity": "catalog:"
+    "@exodus/device-reactivity": "catalog:",
+    "@exodus/solana-web3.js": "catalog:",
+    "@exodus/bytes": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",

@@ -37,9 +37,9 @@
   "dependencies": {
     "node-hid": "catalog:",
     "purify-ts": "catalog:",
-    "uuid": "catalog:",
     "usb": "catalog:",
-    "@exodus/device-reactivity": "catalog:"
+    "@exodus/device-reactivity": "catalog:",
+    "@exodus/crypto": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/device-management-kit": "workspace:*",
@@ -48,7 +48,6 @@
     "@ledgerhq/prettier-config-dsdk": "workspace:*",
     "@ledgerhq/tsconfig-dsdk": "workspace:*",
     "@ledgerhq/vitest-config-dmk": "workspace:*",
-    "@types/uuid": "catalog:",
     "@types/w3c-web-hid": "catalog:",
     "ts-node": "catalog:"
   },

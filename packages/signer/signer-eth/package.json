@@ -41,12 +41,15 @@
   "dependencies": {
     "@ledgerhq/device-contacts-kit": "workspace:^",
     "@ledgerhq/signer-utils": "workspace:^",
-    "ethers": "catalog:",
     "inversify": "catalog:",
     "purify-ts": "catalog:",
     "reflect-metadata": "catalog:",
     "semver": "catalog:",
-    "@exodus/device-reactivity": "catalog:"
+    "@exodus/device-reactivity": "catalog:",
+    "@exodus/bytes": "catalog:",
+    "@exodus/crypto": "catalog:",
+    "@exodus/ethereumjs": "catalog:",
+    "@exodus/ethersproject-rlp": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/context-module": "workspace:^",
@@ -57,7 +60,8 @@
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@types/semver": "catalog:",
-    "ts-node": "catalog:"
+    "ts-node": "catalog:",
+    "ethers": "catalog:"
   },
   "peerDependencies": {
     "@ledgerhq/context-module": "workspace:^",

@@ -47,9 +47,7 @@
     "test:coverage": "vitest run --coverage --passWithNoTests"
   },
   "dependencies": {
-    "@sentry/minimal": "catalog:",
     "purify-ts": "catalog:",
-    "uuid": "catalog:",
     "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {
@@ -59,7 +57,6 @@
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@ledgerhq/prettier-config-dsdk": "workspace:^",
     "@ledgerhq/tsconfig-dsdk": "workspace:^",
-    "@types/uuid": "catalog:",
     "react-native": "catalog:"
   },
   "peerDependencies": {

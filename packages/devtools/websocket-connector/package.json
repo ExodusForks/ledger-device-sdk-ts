@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@ledgerhq/device-management-kit-devtools-websocket-common": "workspace:^",
-    "isomorphic-ws": "catalog:",
     "@exodus/device-reactivity": "catalog:"
   },
   "devDependencies": {

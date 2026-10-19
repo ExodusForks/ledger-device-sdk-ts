@@ -37,7 +37,8 @@
     "inversify": "catalog:",
     "semver": "catalog:",
     "undici": "^8.8.0",
-    "@exodus/device-reactivity": "catalog:"
+    "@exodus/device-reactivity": "catalog:",
+    "@exodus/crypto": "catalog:"
   },
   "devDependencies": {
     "@ledgerhq/vitest-config-dmk": "workspace:^",
