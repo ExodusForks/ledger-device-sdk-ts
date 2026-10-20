@@ -20,6 +20,7 @@ env:
 
 jobs:
   publish-mock-server-docker:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Build and push Mock Server Docker image to JFrog
     runs-on: ledgerhq-device-sdk
     steps:

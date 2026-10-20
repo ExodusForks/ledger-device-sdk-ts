@@ -10,6 +10,7 @@ env:
 
 jobs:
   update-toolchain:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: "Update Toolchain"
     runs-on: ["ledgerhq-device-sdk"]
     steps:

@@ -29,6 +29,7 @@ Thumbs.db
 
 # build
 lib
+.exodus-release
 packages/devtools-rozenite/dist
 apps/device-mock-server-ui/dist
 *.tsbuildinfo

@@ -19,6 +19,7 @@ on:
 
 jobs:
   notify:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Notify Slack
     runs-on: ubuntu-latest
     permissions:

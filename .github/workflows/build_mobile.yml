@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   build-android:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Build android app
     runs-on: ledgerhq-device-sdk
     steps:

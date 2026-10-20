@@ -1,0 +1,67 @@
+name: Exodus Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      dist-tag:
+        description: npm dist-tag
+        type: choice
+        options: [next, latest, alpha, beta, rc]
+        default: next
+      dry-run:
+        description: Build and validate without publishing to npm
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exodus-publish
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check repository and release branch
+        env:
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          test "$GITHUB_REPOSITORY" = 'ExodusForks/ledger-device-sdk-ts'
+          test "$DRY_RUN" = 'true' || test "$GITHUB_REF" = 'refs/heads/develop'
+
+  checks:
+    needs: preflight
+    uses: ./.github/workflows/exodus-ci.yml
+    secrets:
+      NPM_READ_TOKEN: ${{ secrets.NPM_READ_TOKEN }}
+    with:
+      dist-tag: ${{ inputs.dist-tag }}
+
+  publish:
+    needs: checks
+    if: ${{ !inputs.dry-run && github.ref == 'refs/heads/develop' }}
+    environment: Publish
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DIST_TAG: ${{ inputs.dist-tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-exodus
+        with:
+          npm-token: ${{ secrets.NPM_READ_TOKEN }}
+          cache: "false"
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: exodus-npm-packages
+          path: .exodus-release
+      - name: Publish tested tarballs to npm
+        run: node scripts/publish-exodus.mjs --publish

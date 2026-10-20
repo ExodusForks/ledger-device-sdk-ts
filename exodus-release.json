@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "access": "public",
+  "packages": [
+    "@ledgerhq/device-management-kit",
+    "@ledgerhq/device-signer-kit-bitcoin",
+    "@ledgerhq/device-signer-kit-ethereum",
+    "@ledgerhq/device-signer-kit-solana",
+    "@ledgerhq/device-signer-kit-tron",
+    "@ledgerhq/device-signer-kit-xrp",
+    "@ledgerhq/device-transport-kit-node-hid",
+    "@ledgerhq/device-transport-kit-react-native-ble",
+    "@ledgerhq/device-transport-kit-react-native-hid",
+    "@ledgerhq/device-transport-kit-web-ble",
+    "@ledgerhq/device-transport-kit-web-hid"
+  ]
+}

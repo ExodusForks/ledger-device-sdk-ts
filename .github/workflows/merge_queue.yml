@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   checks:
+    if: github.repository == 'LedgerHQ/device-sdk-ts'
     name: Checks (build, prettier, lint, typecheck, test)
     # Single job running each Turbo task as its own step. Build output stays on
     # disk between steps (no cross-job build-cache upload/download) and
@@ -104,7 +105,7 @@ jobs:
     # Aggregates the checks into a single required status so branch protection
     # only needs to require "Run health check".
     needs: [checks]
-    if: ${{ !cancelled() }}
+    if: ${{ github.repository == 'LedgerHQ/device-sdk-ts' && (!cancelled()) }}
     runs-on: ubuntu-22.04
     steps:
       - name: Check results
