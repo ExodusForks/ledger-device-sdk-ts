@@ -15,7 +15,11 @@ export function base64StringToBuffer(value: string): Uint8Array | null {
   if (!isBase64String(normalizedValue)) {
     return null;
   }
-  const unpadded = normalizedValue.replace(/=+$/, "");
+  const paddingStart = normalizedValue.indexOf("=");
+  const unpadded =
+    paddingStart === -1
+      ? normalizedValue
+      : normalizedValue.slice(0, paddingStart);
   return fromBase64(unpadded.padEnd(normalizedValue.length, "A")).slice(
     0,
     Math.floor((unpadded.length * 3) / 4),

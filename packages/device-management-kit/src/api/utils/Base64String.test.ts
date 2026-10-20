@@ -38,6 +38,12 @@ describe("Base64String", () => {
     expect(base64StringToBuffer(encoded)).toBeNull();
   });
 
+  it.each(["", "!"])("rejects long padding runs ending in %j", (suffix) => {
+    const encoded = "AA" + "=".repeat(100_000) + suffix;
+    expect(isBase64String(encoded)).toBe(false);
+    expect(base64StringToBuffer(encoded)).toBeNull();
+  });
+
   it.each(Array.from("wxyz0123456789+/"))(
     "ignores unused bits in the final sextet of /%s==",
     (last) => {
