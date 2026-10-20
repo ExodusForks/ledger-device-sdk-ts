@@ -41,7 +41,8 @@
     "reflect-metadata": "catalog:",
     "semver": "catalog:",
     "@exodus/device-reactivity": "catalog:",
-    "@exodus/crypto": "catalog:"
+    "@exodus/crypto": "catalog:",
+    "@exodus/bytes": "catalog:"
   },
   "peerDependencies": {},
   "devDependencies": {

@@ -1295,6 +1295,9 @@ importers:
 
   packages/device-management-kit:
     dependencies:
+      '@exodus/bytes':
+        specifier: 'catalog:'
+        version: 1.16.0(@noble/hashes@2.0.1)
       '@exodus/crypto':
         specifier: 'catalog:'
         version: 1.0.0-rc.34(patch_hash=a086ca12f13cdb3406cf98d4c949e695f54cf3f686fb740c8af7274f55b445a0)

@@ -74,6 +74,21 @@ describe("HexaString", () => {
   });
 
   describe("hexaStringToBuffer function", () => {
+    it("decodes an empty prefixed input", () => {
+      expect(hexaStringToBuffer("0x")).toStrictEqual(new Uint8Array());
+    });
+
+    it.each(["f", "0xf"])("pads a single hex digit in %j", (value) => {
+      expect(hexaStringToBuffer(value)).toStrictEqual(Uint8Array.of(0x0f));
+    });
+
+    it.each(["0Xff", "ff gg", "ff\n", "ff\r", "0x0g", "-1"])(
+      "returns null for malformed input %j",
+      (value) => {
+        expect(hexaStringToBuffer(value)).toBeNull();
+      },
+    );
+
     it("should convert empty input to empty buffer", () => {
       // GIVEN
       const value = "";
@@ -155,6 +170,19 @@ describe("HexaString", () => {
   });
 
   describe("bufferToHexaString function", () => {
+    it("encodes an empty buffer with an optional prefix", () => {
+      expect(bufferToHexaString(new Uint8Array())).toBe("0x");
+      expect(bufferToHexaString(new Uint8Array(), false)).toBe("");
+    });
+
+    it("encodes only the selected subarray", () => {
+      expect(
+        bufferToHexaString(
+          Uint8Array.of(0x00, 0xab, 0xcd, 0x00).subarray(1, 3),
+        ),
+      ).toBe("0xabcd");
+    });
+
     it("should convert a buffer into a hexa string", () => {
       // GIVEN
       const value = Uint8Array.from([0, 1, 2, 0xff, 0xfe]);
