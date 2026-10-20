@@ -2,6 +2,9 @@ name: Set up Exodus SDK
 description: Install the pinned pnpm toolchain and locked dependencies without lifecycle scripts.
 
 inputs:
+  npm-token:
+    description: Read-only npm token for private dependencies.
+    required: true
   cache:
     description: Cache downloaded dependencies (disabled for publishing).
     default: "true"
@@ -17,4 +20,6 @@ runs:
         cache: ${{ inputs.cache == 'true' && 'pnpm' || '' }}
         package-manager-cache: false
     - shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.npm-token }}
       run: pnpm install --frozen-lockfile --ignore-scripts

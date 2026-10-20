@@ -4,7 +4,12 @@
 
 `Exodus Checks` runs on pull requests, pushes to `develop`, merge queues, and
 manual dispatches. GitHub-hosted runners install the frozen lockfile with
-dependency lifecycle scripts disabled. No npm or GitHub write token is needed.
+dependency lifecycle scripts disabled. Installation uses the read-only repository
+secret `NPM_READ_TOKEN` for private dependencies. No npm or GitHub write token is
+needed. The token is exposed only during installation, not builds, tests, or
+publication. Fork pull requests cannot access this secret and cannot install
+private dependencies; review their changes before running them on a trusted
+branch in this repository.
 
 Checks cover release-tool tests, library builds, formatting, lint, TypeScript,
 unit tests, and the actual release tarballs. The package checks load CommonJS
@@ -44,6 +49,9 @@ these packages into an application.
 
 1. Enable GitHub Actions in `ExodusForks/ledger-device-sdk-ts` if workflows are
    disabled for the fork.
+   Under **Settings > Secrets and variables > Actions**, add the repository secret
+   `NPM_READ_TOKEN`: a granular npm token with read-only access to private
+   dependencies, including `@exodus/solana-buffer-layout`.
 2. Create the GitHub environment `Publish`. Allow deployments only from
    `develop`, and require approval from the release maintainers.
 3. Require the new `SDK checks` status in the `develop` branch ruleset. Do not
@@ -68,11 +76,11 @@ Use Node 24 and the pnpm version pinned in `package.json`, from reviewed
 `develop`:
 
 ```sh
+npm login --scope=@exodus
 pnpm install --frozen-lockfile --ignore-scripts
 node scripts/exodus-release.mjs
 node scripts/check-exodus-packages.mjs
 node scripts/publish-exodus.mjs
-npm login --scope=@exodus
 DIST_TAG=next node scripts/publish-exodus.mjs --publish
 ```
 
