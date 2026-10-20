@@ -1,3 +1,5 @@
+import { fromHex, toHex } from "@exodus/bytes/hex.js";
+
 export type HexaString = `0x${string}`;
 
 export function isHexaString(value: unknown): value is HexaString {
@@ -8,20 +10,14 @@ export function hexaStringToBuffer(value: string): Uint8Array | null {
   if (value.startsWith("0x")) {
     value = value.slice(2);
   }
-  if (value.length === 0) {
-    return new Uint8Array();
-  }
   if (value.length % 2 !== 0) {
     value = "0" + value;
   }
-  if (/^[0-9a-fA-F]*$/.test(value) === false) {
+  try {
+    return fromHex(value);
+  } catch {
     return null;
   }
-  const bytes = value.match(/.{1,2}/g)?.map((byte) => parseInt(byte, 16));
-  if (!bytes || bytes.some(isNaN)) {
-    return null;
-  }
-  return new Uint8Array(bytes);
 }
 
 export function bufferToHexaString(
@@ -37,7 +33,5 @@ export function bufferToHexaString(
   withPrefix: boolean = true,
 ): HexaString | string {
   const prefix = withPrefix ? "0x" : "";
-  return `${prefix}${Array.from(value, (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  ).join("")}`;
+  return `${prefix}${toHex(value)}`;
 }

@@ -5,6 +5,12 @@ preserving local error logging and propagation. Base58 and React Native BLE
 Base64 use `@exodus/bytes@1.16.0`. Hashing, HMAC, UUIDs, secure randomness,
 secp256k1 operations, and sample AES-CBC use `@exodus/crypto@1.0.0-rc.34`.
 
+DMK's Base64 and hex helpers also use Exodus bytes. Base64 keeps its existing
+whitespace, required-padding, and nonzero-padding-bit tolerance: after validation,
+padding is expanded to zero-valued sextets and the extra decoded bytes are removed.
+Hex keeps optional `0x` prefixes and odd-length padding. Invalid encoded input
+still returns `null`. No globals are installed or changed.
+
 ## Ethereum and WebSocket follow-up
 
 - Context-module and the Ethereum signer no longer depend on ethers at runtime.
