@@ -28,9 +28,9 @@ npm install @ledgerhq/device-transport-kit-react-native-ble
 - iOS (11+)
 - Android (6.0+)
 
-| React Native | React Native BLE PLX | 0.1.1 |
-| :----------: | :------------------: | :---: |
-|   \>0.74.1   |        0.3.4         |  ✅   |
+Supported versions are React Native >0.74.1 and React Native BLE PLX 2.0.3 or 3.4.0.
+Development uses PLX 2.0.3 so Exodus can keep its existing audited native BLE dependency.
+Scanning supports both the void return in 2.0.3 and the Promise return in 3.4.0.
 
 ### Pre-requisites
 

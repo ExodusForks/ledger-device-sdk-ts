@@ -757,7 +757,63 @@ describe("RNBleTransport", () => {
         });
       }));
 
-    it("should propagate the error if startDeviceScan throws an error", () => {
+    it.each(["2.0.3", "3.4.0"])(
+      "should discover devices and stop scanning with PLX %s",
+      async (version) => {
+        const scannedDevice = createMockDevice();
+        const startScan = vi.fn(
+          (...args: Parameters<BleManager["startDeviceScan"]>) => {
+            args[2](null, scannedDevice);
+            return version === "3.4.0" ? Promise.resolve() : undefined;
+          },
+        );
+        const stopScan = vi.fn();
+        const transport = new TestTransportBuilder()
+          .withBleManager(
+            createMockBleManager({
+              startDeviceScan: startScan,
+              stopDeviceScan: stopScan,
+            }),
+          )
+          .build();
+
+        try {
+          await expect(
+            firstValueFrom(transport.listenToAvailableDevices()),
+          ).resolves.toEqual([
+            {
+              id: scannedDevice.id,
+              name: scannedDevice.localName,
+              deviceModel: FAKE_DEVICE_MODEL,
+              transport: "RN_BLE",
+              rssi: undefined,
+            },
+          ]);
+        } finally {
+          await transport.stopDiscovering();
+        }
+        expect(stopScan).toHaveBeenCalled();
+      },
+    );
+
+    it("should propagate synchronous scan errors", async () => {
+      const scanError = new Error("startDeviceScan error");
+      const transport = new TestTransportBuilder()
+        .withBleManager(
+          createMockBleManager({
+            startDeviceScan: vi.fn(() => {
+              throw scanError;
+            }),
+          }),
+        )
+        .build();
+
+      await expect(
+        firstValueFrom(transport.listenToAvailableDevices()),
+      ).rejects.toBe(scanError);
+    });
+
+    it("should propagate the error if startDeviceScan rejects", () => {
       const scanError = new Error("startDeviceScan error");
       const startScan = vi.fn().mockRejectedValueOnce(scanError);
 
