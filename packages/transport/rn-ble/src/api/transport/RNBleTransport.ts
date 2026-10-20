@@ -225,8 +225,8 @@ export class RNBleTransport implements Transport {
           const devicesById = new Map<string, InternalScannedDevice>();
 
           this._logger.info("[startScanning] startDeviceScan");
-          this._manager
-            .startDeviceScan(
+          Promise.resolve(
+            this._manager.startDeviceScan(
               this._deviceModelDataSource.getBluetoothServices(),
               { allowDuplicates: true },
               (error, rnDevice) => {
@@ -258,16 +258,16 @@ export class RNBleTransport implements Transport {
                 });
                 subject.next(Array.from(devicesById.values()));
               },
-            )
-            .catch((e) => {
-              subject.error(e);
-              this._logger.error(
-                "[startScanning] Error while calling startDeviceScan",
-                {
-                  data: { error: e },
-                },
-              );
-            });
+            ),
+          ).catch((error) => {
+            subject.error(error);
+            this._logger.error(
+              "[startScanning] Error while calling startDeviceScan",
+              {
+                data: { error },
+              },
+            );
+          });
 
           this._logger.debug("[startScanning] after startDeviceScan");
 

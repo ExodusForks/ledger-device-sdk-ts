@@ -52,13 +52,13 @@
     "@ledgerhq/vitest-config-dmk": "workspace:^",
     "@vitejs/plugin-react": "catalog:",
     "react-native": "catalog:",
-    "react-native-ble-plx": "catalog:",
+    "react-native-ble-plx": "2.0.3",
     "ts-node": "catalog:",
     "vitest-react-native": "catalog:"
   },
   "peerDependencies": {
     "@ledgerhq/device-management-kit": "workspace:^",
     "react-native": ">0.74.1",
-    "react-native-ble-plx": "3.4.0"
+    "react-native-ble-plx": "2.0.3 || 3.4.0"
   }
 }
