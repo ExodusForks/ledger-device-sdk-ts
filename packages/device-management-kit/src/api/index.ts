@@ -123,9 +123,7 @@ export type {
 export { InstallLanguagePackageDeviceAction } from "@api/device-action/os/InstallLanguagePackage/InstallLanguagePackageDeviceAction";
 export { InstallOrUpdateAppsDeviceAction } from "@api/device-action/os/InstallOrUpdateApps/InstallOrUpdateAppsDeviceAction";
 export { ListAppsDeviceAction } from "@api/device-action/os/ListApps/ListAppsDeviceAction";
-export { ListAppsWithMetadataDeviceAction } from "@api/device-action/os/ListAppsWithMetadata/ListAppsWithMetadataDeviceAction";
 export { OpenAppDeviceAction } from "@api/device-action/os/OpenAppDeviceAction/OpenAppDeviceAction";
-export { OpenAppWithDependenciesDeviceAction } from "@api/device-action/os/OpenAppWithDependencies/OpenAppWithDependenciesDeviceAction";
 export { SendCommandInAppDeviceAction } from "@api/device-action/os/SendCommandInAppDeviceAction/SendCommandInAppDeviceAction";
 export type {
   WaitForAppAndVersionDAError,

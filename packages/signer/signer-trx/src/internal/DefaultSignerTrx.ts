@@ -7,34 +7,26 @@ import { type Container } from "inversify";
 
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
 import { type GetAppConfigurationDAReturnType } from "@api/app-binder/GetAppConfigurationDeviceActionTypes";
-import { type GetECDHSecretDAReturnType } from "@api/app-binder/GetECDHSecretDeviceActionTypes";
 import { type SignPersonalMessageDAReturnType } from "@api/app-binder/SignPersonalMessageDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
-import { type SignTransactionHashDAReturnType } from "@api/app-binder/SignTransactionHashDeviceActionTypes";
 import { type AddressOptions } from "@api/model/AddressOptions";
-import { type EcdhOptions } from "@api/model/EcdhOptions";
 import { type MessageOptions } from "@api/model/MessageOptions";
 import { type TransactionOptions } from "@api/model/TransactionOptions";
-import { type TronAddressBook } from "@api/model/TronAddressBook";
 import { type SignerTrx } from "@api/SignerTrx";
 import { makeContainer } from "@internal/di";
 import { addressTypes } from "@internal/use-cases/address/di/addressTypes";
 import { type GetAddressUseCase } from "@internal/use-cases/address/GetAddressUseCase";
 import { appConfigurationTypes } from "@internal/use-cases/app-configuration/di/appConfigurationTypes";
 import { type GetAppConfigurationUseCase } from "@internal/use-cases/app-configuration/GetAppConfigurationUseCase";
-import { ecdhTypes } from "@internal/use-cases/ecdh/di/ecdhTypes";
-import { type GetECDHSecretUseCase } from "@internal/use-cases/ecdh/GetECDHSecretUseCase";
 import { messageTypes } from "@internal/use-cases/message/di/messageTypes";
 import { type SignPersonalMessageUseCase } from "@internal/use-cases/message/SignPersonalMessageUseCase";
 import { transactionTypes } from "@internal/use-cases/transaction/di/transactionTypes";
-import { type SignTransactionHashUseCase } from "@internal/use-cases/transaction/SignTransactionHashUseCase";
 import { type SignTransactionUseCase } from "@internal/use-cases/transaction/SignTransactionUseCase";
 
 type DefaultSignerTrxConstructorArgs = {
   dmk: DeviceManagementKit;
   sessionId: DeviceSessionId;
   contextModule: ContextModule;
-  addressBook?: TronAddressBook;
 };
 
 export class DefaultSignerTrx implements SignerTrx {
@@ -44,13 +36,11 @@ export class DefaultSignerTrx implements SignerTrx {
     dmk,
     sessionId,
     contextModule,
-    addressBook,
   }: DefaultSignerTrxConstructorArgs) {
     this._container = makeContainer({
       dmk,
       sessionId,
       contextModule,
-      addressBook,
     });
   }
 
@@ -73,18 +63,6 @@ export class DefaultSignerTrx implements SignerTrx {
       .execute(derivationPath, transaction, options);
   }
 
-  signTransactionHash(
-    derivationPath: string,
-    transactionHash: Uint8Array,
-    options?: TransactionOptions,
-  ): SignTransactionHashDAReturnType {
-    return this._container
-      .get<SignTransactionHashUseCase>(
-        transactionTypes.SignTransactionHashUseCase,
-      )
-      .execute(derivationPath, transactionHash, options);
-  }
-
   signPersonalMessage(
     derivationPath: string,
     message: string | Uint8Array,
@@ -101,15 +79,5 @@ export class DefaultSignerTrx implements SignerTrx {
         appConfigurationTypes.GetAppConfigurationUseCase,
       )
       .execute();
-  }
-
-  getECDHSecret(
-    derivationPath: string,
-    publicKey: Uint8Array,
-    options?: EcdhOptions,
-  ): GetECDHSecretDAReturnType {
-    return this._container
-      .get<GetECDHSecretUseCase>(ecdhTypes.GetECDHSecretUseCase)
-      .execute(derivationPath, publicKey, options);
   }
 }

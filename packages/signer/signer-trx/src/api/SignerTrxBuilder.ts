@@ -8,7 +8,6 @@ import {
   type DeviceSessionId,
 } from "@ledgerhq/device-management-kit";
 
-import { type TronAddressBook } from "@api/model/TronAddressBook";
 import { DefaultSignerTrx } from "@internal/DefaultSignerTrx";
 
 type SignerTrxBuilderConstructorArgs = {
@@ -31,7 +30,6 @@ export class SignerTrxBuilder {
   private readonly _sessionId: DeviceSessionId;
   private readonly _originToken: string | undefined;
   private _customContextModule: ContextModule | undefined;
-  private _addressBook: TronAddressBook | undefined;
 
   constructor({
     dmk,
@@ -51,20 +49,6 @@ export class SignerTrxBuilder {
    */
   withContextModule(contextModule: ContextModule) {
     this._customContextModule = contextModule;
-    return this;
-  }
-
-  /**
-   * Provide the Tron-compatible address book used to clear-sign contact names.
-   *
-   * The snapshot must be complete: the signer neither mutates nor persists it,
-   * and reads it as-is. Rebuild the signer to pick up later changes.
-   *
-   * @param addressBook a complete Tron address-book snapshot
-   * @returns this
-   */
-  withAddressBook(addressBook: TronAddressBook) {
-    this._addressBook = addressBook;
     return this;
   }
 
@@ -89,7 +73,6 @@ export class SignerTrxBuilder {
       dmk: this._dmk,
       sessionId: this._sessionId,
       contextModule,
-      addressBook: this._addressBook,
     });
   }
 }

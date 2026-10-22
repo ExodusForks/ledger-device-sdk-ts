@@ -5,14 +5,6 @@ export {
   type GetAddressDAOutput,
   type GetAddressDAReturnType,
 } from "@api/app-binder/GetAddressDeviceActionTypes";
-export {
-  type SignDelegationAuthorizationDAError,
-  type SignDelegationAuthorizationDAInput,
-  type SignDelegationAuthorizationDAIntermediateValue,
-  type SignDelegationAuthorizationDAOutput,
-  type SignDelegationAuthorizationDAReturnType,
-  type SignDelegationAuthorizationDAState,
-} from "@api/app-binder/SignDelegationAuthorizationTypes";
 export { SignPersonalMessageDeviceActionFactory } from "@api/app-binder/SignPersonalMessageDeviceActionFactory";
 export {
   type SignPersonalMessageDAError,
@@ -44,7 +36,6 @@ export {
 } from "@api/app-binder/SignTypedDataDeviceActionTypes";
 export * from "@api/model/Address";
 export * from "@api/model/AddressOptions";
-export * from "@api/model/EvmAddressBook";
 export * from "@api/model/Signature";
 export * from "@api/model/TransactionOptions";
 export * from "@api/model/TransactionType";

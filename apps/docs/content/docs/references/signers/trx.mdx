@@ -4,10 +4,8 @@ This module provides the implementation of the Ledger Tron signer of the Device 
 
 - Retrieving the Tron address using a given derivation path
 - Signing a Tron transaction
-- Signing a Tron transaction hash
 - Signing a personal message
 - Retrieving the app configuration
-- Computing an ECDH shared secret with a peer public key
 
 ## 🔹 Index
 
@@ -18,9 +16,7 @@ This module provides the implementation of the Ledger Tron signer of the Device 
    - [Get App Configuration](#use-case-1-get-app-configuration)
    - [Get Address](#use-case-2-get-address)
    - [Sign Transaction](#use-case-3-sign-transaction)
-   - [Sign Transaction Hash](#use-case-4-sign-transaction-hash)
    - [Sign Personal Message](#use-case-5-sign-personal-message)
-   - [Get ECDH Secret](#use-case-6-get-ecdh-secret)
 5. [Observable Behavior](#-observable-behavior)
 6. [Example](#-example)
 
@@ -48,7 +44,7 @@ const signerTrx = new SignerTrxBuilder({ dmk, sessionId }).build();
 
 ## 🔹 Use Cases
 
-The `SignerTrxBuilder.build()` method will return a `SignerTrx` instance that exposes 6 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
+The `SignerTrxBuilder.build()` method will return a `SignerTrx` instance that exposes 4 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
 
 > **Note:** Tron uses the BIP44 coin type `195`, so derivation paths look like `"44'/195'/0'/0/0"`.
 
@@ -179,57 +175,6 @@ type Signature = Uint8Array; // 65-byte signature
 
 ---
 
-### Use Case 4: Sign Transaction Hash
-
-This method allows users to sign a raw Tron transaction hash. Signing a bare hash is a blind-signing operation, so use it with caution.
-
-```typescript
-const { observable, cancel } = signerTrx.signTransactionHash(
-  derivationPath,
-  transactionHash,
-  options,
-);
-```
-
-#### **Parameters**
-
-- `derivationPath`
-
-  - **Required**
-  - **Type:** `string` (e.g., `"44'/195'/0'/0/0"`)
-  - The derivation path used for the Tron transaction hash.
-
-- `transactionHash`
-
-  - **Required**
-  - **Type:** `Uint8Array`
-  - The 32-byte transaction hash to be signed.
-
-- `options`
-
-  - Optional
-  - Type: `TransactionOptions`
-
-    ```typescript
-    type TransactionOptions = {
-      skipOpenApp?: boolean;
-    };
-    ```
-
-  - `skipOpenApp`: An optional boolean indicating whether to skip opening the Tron app automatically (`true`) or not (`false`).
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-type Signature = Uint8Array; // 65-byte signature
-```
-
-- `cancel` A function to cancel the action on the Ledger device.
-
----
-
 ### Use Case 5: Sign Personal Message
 
 This method allows users to sign a personal message (TRON's `signMessage` / TIP-191 flow).
@@ -275,58 +220,6 @@ const { observable, cancel } = signerTrx.signPersonalMessage(
 
 ```typescript
 type Signature = Uint8Array; // 65-byte signature
-```
-
-- `cancel` A function to cancel the action on the Ledger device.
-
----
-
-### Use Case 6: Get ECDH Secret
-
-This method computes an ECDH shared secret between the device key (derived from the BIP32 path) and a peer's uncompressed secp256k1 public key. The operation is shown on the device for approval.
-
-```typescript
-const { observable, cancel } = signerTrx.getECDHSecret(
-  derivationPath,
-  publicKey,
-  options,
-);
-```
-
-#### **Parameters**
-
-- `derivationPath`
-
-  - **Required**
-  - **Type:** `string` (e.g., `"44'/195'/0'/0/0"`)
-  - The derivation path used to derive the device key.
-
-- `publicKey`
-
-  - **Required**
-  - **Type:** `Uint8Array`
-  - The peer's uncompressed secp256k1 public key (65 bytes, `0x04 || X || Y`).
-
-- `options`
-
-  - Optional
-  - Type: `EcdhOptions`
-
-    ```typescript
-    type EcdhOptions = {
-      skipOpenApp?: boolean;
-    };
-    ```
-
-  - `skipOpenApp`: An optional boolean indicating whether to skip opening the Tron app automatically (`true`) or not (`false`).
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-// The 65-byte ECDH shared point (0x04 || X || Y).
-type GetECDHSecretDAOutput = Uint8Array;
 ```
 
 - `cancel` A function to cancel the action on the Ledger device.

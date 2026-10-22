@@ -15,11 +15,6 @@ import {
   type GetAddressDAOutput,
 } from "@api/app-binder/GetAddressDeviceActionTypes";
 import {
-  type SignDelegationAuthorizationDAError,
-  type SignDelegationAuthorizationDAIntermediateValue,
-  type SignDelegationAuthorizationDAOutput,
-} from "@api/app-binder/SignDelegationAuthorizationTypes";
-import {
   type SignPersonalMessageDAError,
   type SignPersonalMessageDAIntermediateValue,
   type SignPersonalMessageDAOutput,
@@ -34,13 +29,8 @@ import {
   type SignTypedDataDAIntermediateValue,
   type SignTypedDataDAOutput,
 } from "@api/app-binder/SignTypedDataDeviceActionTypes";
-import {
-  EMPTY_EVM_ADDRESS_BOOK,
-  type EvmAddressBook,
-} from "@api/model/EvmAddressBook";
 import { type Signature } from "@api/model/Signature";
 import { type TypedData } from "@api/model/TypedData";
-import { type SignTransactionDeviceAction } from "@internal/app-binder/device-action/SignTransaction/SignTransactionDeviceAction";
 import { type TransactionMapperService } from "@internal/transaction/service/mapper/TransactionMapperService";
 import { type TransactionParserService } from "@internal/transaction/service/parser/TransactionParserService";
 import { type TypedDataParserService } from "@internal/typed-data/service/TypedDataParserService";
@@ -108,7 +98,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         const { observable } = appBinder.getAddress({
           derivationPath: "44'/60'/3'/2/1",
@@ -170,7 +159,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         appBinder.getAddress(params);
 
@@ -206,7 +194,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         appBinder.getAddress(params);
 
@@ -267,7 +254,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         const { observable } = appBinder.signTransaction({
           derivationPath: "44'/60'/3'/2/1",
@@ -341,7 +327,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         const { observable } = appBinder.signTransaction({
           derivationPath: "44'/60'/3'/2/1",
@@ -377,51 +362,6 @@ describe("EthAppBinder", () => {
           },
         });
       }));
-
-    it("passes the injected address book to the sign-transaction device action", () => {
-      // GIVEN
-      const addressBook: EvmAddressBook = {
-        contactGroups: [
-          {
-            contactName: "Alice",
-            groupHandle: new Uint8Array(64).fill(0xaa),
-            hmacProof: new Uint8Array(32).fill(0xbb),
-            externalAddresses: [
-              {
-                scope: "Ethereum",
-                address: "0x1111111111111111111111111111111111111111",
-                chainId: 1n,
-                hmacRest: new Uint8Array(32).fill(0xcc),
-              },
-            ],
-          },
-        ],
-        ledgerAccounts: [],
-      };
-      const executeSpy = vi
-        .spyOn(mockedDmk, "executeDeviceAction")
-        .mockReturnValue({ observable: from([]), cancel: vi.fn() });
-
-      // WHEN
-      new EthAppBinder(
-        mockedDmk,
-        mockedContextModule as unknown as ContextModule,
-        mockedMapper,
-        mockedParser,
-        "sessionId",
-        mockLoggerFactory,
-        addressBook,
-      ).signTransaction({
-        derivationPath: "44'/60'/3'/2/1",
-        transaction: new Uint8Array([0x01]),
-      });
-
-      // THEN
-      const { deviceAction } = executeSpy.mock.calls[0]![0];
-      expect(
-        (deviceAction as SignTransactionDeviceAction).input.addressBook,
-      ).toBe(addressBook);
-    });
   });
 
   describe("signMessage", () => {
@@ -457,7 +397,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         const { observable } = appBinder.signPersonalMessage({
           derivationPath: "44'/60'/3'/2/1",
@@ -470,80 +409,6 @@ describe("EthAppBinder", () => {
           SignPersonalMessageDAOutput,
           SignPersonalMessageDAError,
           SignPersonalMessageDAIntermediateValue
-        >[] = [];
-        observable.subscribe({
-          next: (state) => {
-            states.push(state);
-          },
-          error: (err) => {
-            reject(err);
-          },
-          complete: () => {
-            try {
-              expect(states).toEqual([
-                {
-                  status: DeviceActionStatus.Completed,
-                  output: signature,
-                },
-              ]);
-              resolve();
-            } catch (err) {
-              reject(err as Error);
-            }
-          },
-        });
-      }));
-  });
-
-  describe("signDelegationAuthorization", () => {
-    it("should return the signature", () =>
-      new Promise<void>((resolve, reject) => {
-        // GIVEN
-        const signature: Signature = {
-          r: `0xDEAD`,
-          s: `0xBEEF`,
-          v: 0,
-        };
-        const chainId = 2;
-        const nonce = 42;
-        const address = "0xaddress";
-
-        vi.spyOn(mockedDmk, "executeDeviceAction").mockReturnValue({
-          observable: from([
-            {
-              status: DeviceActionStatus.Completed,
-              output: signature,
-            } as DeviceActionState<
-              SignDelegationAuthorizationDAOutput,
-              SignDelegationAuthorizationDAError,
-              SignDelegationAuthorizationDAIntermediateValue
-            >,
-          ]),
-          cancel: vi.fn(),
-        });
-
-        // WHEN
-        const appBinder = new EthAppBinder(
-          mockedDmk,
-          mockedContextModule as unknown as ContextModule,
-          mockedMapper,
-          mockedParser,
-          "sessionId",
-          mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
-        );
-        const { observable } = appBinder.signDelegationAuthorization({
-          derivationPath: "44'/60'/3'/2/1",
-          chainId,
-          address,
-          nonce,
-        });
-
-        // THEN
-        const states: DeviceActionState<
-          SignDelegationAuthorizationDAOutput,
-          SignDelegationAuthorizationDAError,
-          SignDelegationAuthorizationDAIntermediateValue
         >[] = [];
         observable.subscribe({
           next: (state) => {
@@ -610,7 +475,6 @@ describe("EthAppBinder", () => {
           mockedParser,
           "sessionId",
           mockLoggerFactory,
-          EMPTY_EVM_ADDRESS_BOOK,
         );
         const { observable } = appBinder.signTypedData({
           derivationPath: "44'/60'/3'/2/1",

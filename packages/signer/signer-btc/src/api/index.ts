@@ -4,9 +4,7 @@ export * from "@api/app-binder/GetExtendedPublicKeyDeviceActionTypes";
 export * from "@api/app-binder/GetMasterFingerprintDeviceActionTypes";
 export * from "@api/app-binder/GetWalletAddressDeviceActionTypes";
 export * from "@api/app-binder/RegisterWalletDeviceActionTypes";
-export * from "@api/app-binder/SignMessageDeviceActionTypes";
 export * from "@api/app-binder/SignPsbtDeviceActionTypes";
-export * from "@api/app-binder/SignTransactionDeviceActionTypes";
 export {
   DefaultDescriptorTemplate,
   DefaultWallet,

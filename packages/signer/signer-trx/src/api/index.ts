@@ -11,12 +11,6 @@ export {
   type GetAppConfigurationDAReturnType,
 } from "@api/app-binder/GetAppConfigurationDeviceActionTypes";
 export {
-  type GetECDHSecretDAError,
-  type GetECDHSecretDAIntermediateValue,
-  type GetECDHSecretDAOutput,
-  type GetECDHSecretDAReturnType,
-} from "@api/app-binder/GetECDHSecretDeviceActionTypes";
-export {
   type SignPersonalMessageDAError,
   type SignPersonalMessageDAIntermediateValue,
   type SignPersonalMessageDAOutput,
@@ -28,25 +22,11 @@ export {
   type SignTransactionDAOutput,
   type SignTransactionDAReturnType,
 } from "@api/app-binder/SignTransactionDeviceActionTypes";
-export {
-  type SignTransactionHashDAError,
-  type SignTransactionHashDAIntermediateValue,
-  type SignTransactionHashDAOutput,
-  type SignTransactionHashDAReturnType,
-} from "@api/app-binder/SignTransactionHashDeviceActionTypes";
 export { type AddressOptions } from "@api/model/AddressOptions";
 export { type AppConfiguration } from "@api/model/AppConfiguration";
-export { type EcdhOptions } from "@api/model/EcdhOptions";
 export { type MessageOptions } from "@api/model/MessageOptions";
 export { type Signature } from "@api/model/Signature";
 export { type TransactionOptions } from "@api/model/TransactionOptions";
-export {
-  EMPTY_TRON_ADDRESS_BOOK,
-  type TronAddressBook,
-  type TronContactGroup,
-  type TronExternalAddress,
-  type TronLedgerAccountContact,
-} from "@api/model/TronAddressBook";
 export { type SignerTrx } from "@api/SignerTrx";
 export { SignerTrxBuilder } from "@api/SignerTrxBuilder";
 export { type TronAppErrorCodes } from "@internal/app-binder/command/utils/tronApplicationErrors";

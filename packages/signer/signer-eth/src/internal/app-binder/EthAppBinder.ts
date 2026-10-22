@@ -9,13 +9,9 @@ import { UserInteractionRequired } from "@ledgerhq/device-management-kit";
 import { inject, injectable } from "inversify";
 
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
-import { SignDelegationAuthorizationDAReturnType } from "@api/app-binder/SignDelegationAuthorizationTypes";
 import { type SignPersonalMessageDAReturnType } from "@api/app-binder/SignPersonalMessageDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
 import { type SignTypedDataDAReturnType } from "@api/app-binder/SignTypedDataDeviceActionTypes";
-import { VerifySafeAddressDAReturnType } from "@api/app-binder/VerifySafeAddressDeviceActionTypes";
-import { type EvmAddressBook } from "@api/model/EvmAddressBook";
-import { SafeAddressOptions } from "@api/model/SafeAddressOptions";
 import { type TransactionOptions } from "@api/model/TransactionOptions";
 import { type TypedData } from "@api/model/TypedData";
 import { SignTypedDataDeviceAction } from "@internal/app-binder/device-action/SignTypedData/SignTypedDataDeviceAction";
@@ -27,9 +23,7 @@ import { TransactionParserService } from "@internal/transaction/service/parser/T
 import { type TypedDataParserService } from "@internal/typed-data/service/TypedDataParserService";
 
 import { SignTransactionDeviceAction } from "./device-action/SignTransaction/SignTransactionDeviceAction";
-import { VerifySafeAddressDeviceAction } from "./device-action/VerifySafeAddress/VerifySafeAddress";
 import { SendGetAddressTask } from "./task/SendGetAddressTask";
-import { SendSignAuthorizationDelegationTask } from "./task/SendSignAuthorizationDelegationTask";
 import { APP_NAME } from "./constants";
 
 @injectable()
@@ -44,7 +38,6 @@ export class EthAppBinder {
     @inject(externalTypes.SessionId) private sessionId: DeviceSessionId,
     @inject(externalTypes.DmkLoggerFactory)
     private dmkLoggerFactory: (tag: string) => LoggerPublisherService,
-    @inject(externalTypes.AddressBook) private addressBook: EvmAddressBook,
   ) {}
 
   getAddress(args: {
@@ -75,23 +68,6 @@ export class EthAppBinder {
           skipOpenApp: args.skipOpenApp,
         },
         logger: taskLogger,
-      }),
-    });
-  }
-
-  verifySafeAddress(args: {
-    safeContractAddress: string;
-    options?: SafeAddressOptions;
-  }): VerifySafeAddressDAReturnType {
-    return this.dmk.executeDeviceAction({
-      sessionId: this.sessionId,
-      deviceAction: new VerifySafeAddressDeviceAction({
-        input: {
-          safeContractAddress: args.safeContractAddress,
-          contextModule: this.contextModule,
-          options: args.options ?? { chainId: 1 },
-        },
-        loggerFactory: this.dmkLoggerFactory,
       }),
     });
   }
@@ -134,7 +110,6 @@ export class EthAppBinder {
           mapper: this.mapper,
           parser: this.parser,
           contextModule: this.contextModule,
-          addressBook: this.addressBook,
           options: args.options ?? {},
         },
         loggerFactory: this.dmkLoggerFactory,
@@ -161,34 +136,6 @@ export class EthAppBinder {
           skipOpenApp: args.skipOpenApp,
         },
         loggerFactory: this.dmkLoggerFactory,
-      }),
-    });
-  }
-
-  signDelegationAuthorization(args: {
-    derivationPath: string;
-    chainId: number;
-    address: string;
-    nonce: number;
-  }): SignDelegationAuthorizationDAReturnType {
-    const taskLogger = this.dmkLoggerFactory(
-      "SendSignAuthorizationDelegationTask",
-    );
-    return this.dmk.executeDeviceAction({
-      sessionId: this.sessionId,
-      deviceAction: new CallTaskInAppDeviceAction({
-        input: {
-          task: async (internalApi) =>
-            new SendSignAuthorizationDelegationTask(internalApi, {
-              ...args,
-              logger: taskLogger,
-            }).run(),
-          appName: APP_NAME,
-          requiredUserInteraction:
-            UserInteractionRequired.SignDelegationAuthorization,
-          skipOpenApp: false,
-        },
-        logger: this.dmkLoggerFactory("SendSignAuthorizationDelegationTask"),
       }),
     });
   }

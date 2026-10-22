@@ -8,13 +8,9 @@ import {
   InvalidStatusWordError,
 } from "@ledgerhq/device-management-kit";
 
-import { type Signature } from "@api/model/Signature";
 import { type WalletAddress } from "@api/model/Wallet";
 import { type BtcErrorCodes } from "@internal/app-binder/command/utils/bitcoinAppErrors";
 import { SW_INTERRUPTED_EXECUTION } from "@internal/app-binder/command/utils/constants";
-
-const R_LENGTH = 32;
-const S_LENGTH = 32;
 const WALLET_ID_LENGTH = 32;
 const WALLET_HMAC_LENGTH = 32;
 
@@ -35,47 +31,6 @@ export class BtcCommandUtils {
       DmkCommandUtils.isSuccessResponse(response) ||
       BtcCommandUtils.isContinueResponse(response)
     );
-  }
-
-  static getSignature(
-    result: CommandSuccessResult<ApduResponse>,
-  ): CommandResult<Signature, BtcErrorCodes> {
-    const parser = new ApduParser(result.data);
-
-    const v = parser.extract8BitUInt();
-    if (v === undefined) {
-      return CommandResultFactory({
-        error: new InvalidStatusWordError("V is missing"),
-      });
-    }
-
-    const r = parser.encodeToHexaString(
-      parser.extractFieldByLength(R_LENGTH),
-      true,
-    );
-    if (!r) {
-      return CommandResultFactory({
-        error: new InvalidStatusWordError("R is missing"),
-      });
-    }
-
-    const s = parser.encodeToHexaString(
-      parser.extractFieldByLength(S_LENGTH),
-      true,
-    );
-    if (!s) {
-      return CommandResultFactory({
-        error: new InvalidStatusWordError("S is missing"),
-      });
-    }
-
-    return CommandResultFactory({
-      data: {
-        v,
-        r,
-        s,
-      },
-    });
   }
 
   static getAddress(

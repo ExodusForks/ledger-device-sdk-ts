@@ -4,7 +4,6 @@ This module provides the implementation of the Ledger xrp signer of the Device M
 
 - Retrieving the xrp address using a given derivation path
 - Signing a xrp transaction
-- Retrieving the app configuration
 
 ## 🔹 Index
 
@@ -12,7 +11,6 @@ This module provides the implementation of the Ledger xrp signer of the Device M
 2. [Installation](#-installation)
 3. [Initialisation](#-initialisation)
 4. [Use Cases](#-use-cases)
-   - [Get App Configuration](#use-case-1-get-app-configuration)
    - [Get Address](#use-case-2-get-address)
    - [Sign Transaction](#use-case-3-sign-transaction)
 5. [Observable Behavior](#-observable-behavior)
@@ -42,46 +40,7 @@ const signerXrp = new SignerXrpBuilder({ dmk, sessionId }).build();
 
 ## 🔹 Use Cases
 
-The `SignerXrpBuilder.build()` method will return a `SignerXrp` instance that exposes 3 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
-
----
-
-### Use Case 1: Get App Configuration
-
-This method allows users to retrieve the app configuration from the Ledger device.
-
-```typescript
-const { observable, cancel } = signerXrp.getAppConfig(options);
-```
-
-#### **Parameters**
-
-- `options`
-
-  - Optional
-  - Type: `AppConfigOptions`
-
-    ```typescript
-    type AppConfigOptions = {
-      skipOpenApp?: boolean;
-    };
-    ```
-
-  - `skipOpenApp`: An optional boolean indicating whether to skip opening the xrp app automatically (`true`) or not (`false`). Defaults to `false`.
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-type GetAppConfigCommandResponse = {
-  readonly version: string;
-};
-```
-
-- `version`: The version of the XRP application installed on the device, formatted as `"major.minor.patch"` (e.g. `"2.5.2"`).
-
-- `cancel` A function to cancel the action on the Ledger device.
+The `SignerXrpBuilder.build()` method will return a `SignerXrp` instance that exposes 2 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
 
 ---
 

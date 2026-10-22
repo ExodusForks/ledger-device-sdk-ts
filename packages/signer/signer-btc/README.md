@@ -3,9 +3,7 @@
 This module provides the implementation of the Ledger Bitcoin signer of the Device Management Kit. It enables interaction with the Bitcoin application on a Ledger device including:
 
 - Retrieving the Bitcoin extended public key and master fingerprint;
-- Signing a message displayed on a Ledger device;
 - Signing a Bitcoin partially signed transaction (PSBT);
-- Signing a Bitcoin transaction;
 - Retrieving wallet addresses;
 - Registering custom wallet policies (e.g., multisig wallets);
 
@@ -17,9 +15,7 @@ This module provides the implementation of the Ledger Bitcoin signer of the Devi
 4. [Use Cases](#-use-cases)
    - [Get Extended Public Key](#use-case-1-get-extended-public-key)
    - [Get Master Fingerprint](#use-case-2-get-master-fingerprint)
-   - [Sign Message](#use-case-3-sign-message)
    - [Sign Partially Signed Transaction (PSBT)](#use-case-4-sign-psbt)
-   - [Sign Transaction](#use-case-5-sign-transaction)
    - [Get Wallet address](#use-case-6-get-wallet-address)
    - [Register Wallet](#use-case-7-register-wallet)
 5. [Observable Behavior](#-observable-behavior)
@@ -50,7 +46,7 @@ const signerBitcoin = new SignerBtcBuilder({ sdk, sessionId }).build();
 
 ## 🔹 Use Cases
 
-The `SignerBtcBuilder.build()` method will return a `SignerBitcoin` instance that exposes 7 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
+The `SignerBtcBuilder.build()` method will return a `SignerBitcoin` instance that exposes 5 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
 
 ---
 
@@ -137,47 +133,6 @@ type GetMasterFingerprintCommandResponse = {
 
 ---
 
-### Use Case 3: Sign message
-
-This method allows users to sign a text string that is displayed on Ledger devices.
-
-```typescript
-const { observable, cancel } = signerBitcoin.signMessage(
-  derivationPath,
-  message,
-);
-```
-
-#### **Parameters**
-
-- `derivationPath`
-
-  - **Required**
-  - **Type:** `string` (e.g. `"84'/0'/0'"` for a Native SegWit wallet)
-  - The derivation path used for the Bitcoin address. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
-
-- `message`
-
-  - **Required**
-  - **Type:** `string`
-  - The message to be signed, which will be displayed on the Ledger device.
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-type Signature = {
-  r: `0x${string}`; // R component of the signature
-  s: `0x${string}`; // S component of the signature
-  v: number; // Recovery parameter
-};
-```
-
-- `cancel` A function to cancel the action on the Ledger device.
-
----
-
 ### Use Case 4: Sign PSBT
 
 This method allows users to sign a partially signed transaction.
@@ -257,61 +212,6 @@ type PsbtSignature = PartialSignature | MusigPartialSignature | MusigPubNonce;
 - `cancel` A function to cancel the action on the Ledger device.
 
 ---
-
-### Use Case 5: Sign transaction
-
-This method allows users to sign a Bitcoin transaction.
-
-```typescript
-const { observable, cancel } = signerBitcoin.signTransaction(
-  new DefaultWallet(path, descriptorTemplate),
-  psbt,
-);
-```
-
-#### **Parameters**
-
-- `wallet`
-
-  - **Required**
-  - **Type:** `Wallet`
-
-  ```typescript
-  type Wallet = DefaultWallet | RegisteredWallet;
-
-  class DefaultWallet {
-    constructor(
-      // Derivation path without master key representation.
-      // Format example: /44'/0'/0'
-      public derivationPath: string,
-      public template: DefaultDescriptorTemplate,
-    ) {}
-  }
-
-  class RegisteredWallet {
-    constructor(
-      public name: string,
-      public descriptorTemplate: string,
-      public keys: string[],
-      public hmac: Uint8Array,
-    ) {}
-  }
-  ```
-
-  - `psbt`
-    - **Required**
-    - **Type:** `string | Psbt`
-    - A base64/hex psbt string or [bitcoin-js Psbt](https://github.com/bitcoinjs/bitcoinjs-lib/blob/151173f05e26a9af7c98d8d1e3f90e97185955f1/ts_src/psbt.ts#L131)
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-type TransactionHash = `0x${string}`;
-```
-
-- `cancel` A function to cancel the action on the Ledger device.
 
 ### Use Case 6: Get wallet address
 

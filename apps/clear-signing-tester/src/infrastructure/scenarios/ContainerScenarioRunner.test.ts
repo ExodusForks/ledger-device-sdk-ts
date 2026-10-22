@@ -53,19 +53,21 @@ describe("ContainerScenarioRunner", () => {
     expect(outcome.failures).toBe(1);
   });
 
-  // Naming one elsewhere would run the scenario as if it had none.
-  it("refuses an address book on a coin app whose signer takes none", async () => {
-    const run: ScenarioRun = {
-      scenario: {
-        ...RUN.scenario,
-        coinApp: "Solana",
-        options: { addressBook: "./ressources/tron/address-book.json" },
-      },
-      device: "stax",
-    };
+  it.each(["Ethereum", "Tron", "Solana"] as const)(
+    "rejects unsupported contact signing for %s",
+    async (coinApp) => {
+      const run: ScenarioRun = {
+        scenario: {
+          ...RUN.scenario,
+          coinApp,
+          options: { addressBook: "./ressources/tron/address-book.json" },
+        },
+        device: "stax",
+      };
 
-    await expect(new ContainerScenarioRunner(RUNTIME).run(run)).rejects.toThrow(
-      "Solana scenarios cannot name an address book",
-    );
-  });
+      await expect(
+        new ContainerScenarioRunner(RUNTIME).run(run),
+      ).rejects.toThrow("Ledger contact signing is not supported by this fork");
+    },
+  );
 });

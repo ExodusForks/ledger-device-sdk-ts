@@ -10,9 +10,6 @@ import { GetExtendedPublicKeyUseCase } from "@internal/use-cases/get-extended-pu
 import { GetMasterFingerprintUseCase } from "@internal/use-cases/get-master-fingerprint/GetMasterFingerprintUseCase";
 import { RegisterWalletUseCase } from "@internal/use-cases/register-wallet/RegisterWalletUseCase";
 import { SignPsbtUseCase } from "@internal/use-cases/sign-psbt/SignPsbtUseCase";
-import { SignTransactionUseCase } from "@internal/use-cases/sign-transaction/SignTransactionUseCase";
-
-import { SignMessageUseCase } from "./use-cases/sign-message/SignMessageUseCase";
 
 const mockLoggerFactory = () => ({
   debug: vi.fn(),
@@ -29,6 +26,17 @@ describe("DefaultSignerBtc", () => {
       sessionId: "session-id",
     });
     expect(signer).toBeDefined();
+    expect(signer).not.toHaveProperty("signMessage");
+    expect(signer).not.toHaveProperty("signTransaction");
+    for (const name of [
+      "getExtendedPublicKey",
+      "getMasterFingerprint",
+      "getWalletAddress",
+      "registerWallet",
+      "signPsbt",
+    ]) {
+      expect(signer).toHaveProperty(name, expect.any(Function));
+    }
   });
 
   it("should call getExtendedPublicKeyUseCase", () => {
@@ -73,20 +81,6 @@ describe("DefaultSignerBtc", () => {
     signer.registerWallet(walletPolicy, { skipOpenApp: false });
     expect(RegisterWalletUseCase.prototype.execute).toHaveBeenCalled();
   });
-
-  it("should call signMessageUseCase", () => {
-    vi.spyOn(SignMessageUseCase.prototype, "execute");
-    const sessionId = "session-id";
-    const dmk = {
-      executeDeviceAction: vi.fn(),
-      getLoggerFactory: vi.fn().mockReturnValue(mockLoggerFactory),
-    } as unknown as DeviceManagementKit;
-    const derivationPath = "44'/0'/0'/0/0";
-    const message = "message";
-    const signer = new DefaultSignerBtc({ dmk, sessionId });
-    signer.signMessage(derivationPath, message, { skipOpenApp: false });
-    expect(SignMessageUseCase.prototype.execute).toHaveBeenCalled();
-  });
   it("should call signPsbtUseCase", () => {
     vi.spyOn(SignPsbtUseCase.prototype, "execute");
     const sessionId = "session-id";
@@ -101,20 +95,5 @@ describe("DefaultSignerBtc", () => {
       { skipOpenApp: false },
     );
     expect(SignPsbtUseCase.prototype.execute).toHaveBeenCalled();
-  });
-  it("should call signTransactionUseCase", () => {
-    vi.spyOn(SignTransactionUseCase.prototype, "execute");
-    const sessionId = "session-id";
-    const dmk = {
-      executeDeviceAction: vi.fn(),
-      getLoggerFactory: vi.fn().mockReturnValue(mockLoggerFactory),
-    } as unknown as DeviceManagementKit;
-    const signer = new DefaultSignerBtc({ dmk, sessionId });
-    signer.signTransaction(
-      new DefaultWallet("44'/0'/0'", DefaultDescriptorTemplate.NATIVE_SEGWIT),
-      "",
-      { skipOpenApp: false },
-    );
-    expect(SignTransactionUseCase.prototype.execute).toHaveBeenCalled();
   });
 });

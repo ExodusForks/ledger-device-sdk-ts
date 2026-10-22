@@ -1,7 +1,3 @@
-import { type HexaString } from "@ledgerhq/device-management-kit";
-
-export type Signature = { r: HexaString; s: HexaString; v: number };
-
 export type PartialSignature = {
   inputIndex: number;
   pubkey: Uint8Array;

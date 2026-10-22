@@ -11,18 +11,10 @@ import { inject, injectable } from "inversify";
 
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
 import { type GetAppConfigurationDAReturnType } from "@api/app-binder/GetAppConfigurationDeviceActionTypes";
-import { type GetECDHSecretDAReturnType } from "@api/app-binder/GetECDHSecretDeviceActionTypes";
 import { type SignPersonalMessageDAReturnType } from "@api/app-binder/SignPersonalMessageDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
-import { type SignTransactionHashDAReturnType } from "@api/app-binder/SignTransactionHashDeviceActionTypes";
-import {
-  EMPTY_TRON_ADDRESS_BOOK,
-  type TronAddressBook,
-} from "@api/model/TronAddressBook";
 import { GetAddressCommand } from "@internal/app-binder/command/GetAddressCommand";
 import { GetAppConfigurationCommand } from "@internal/app-binder/command/GetAppConfigurationCommand";
-import { GetECDHSecretCommand } from "@internal/app-binder/command/GetECDHSecretCommand";
-import { SignTransactionHashCommand } from "@internal/app-binder/command/SignTransactionHashCommand";
 import { APP_NAME } from "@internal/app-binder/constants";
 import { SignTransactionDeviceAction } from "@internal/app-binder/device-action/SignTransaction/SignTransactionDeviceAction";
 import { SignPersonalMessageTask } from "@internal/app-binder/task/SignPersonalMessageTask";
@@ -37,8 +29,6 @@ export class TronAppBinder {
     private dmkLoggerFactory: (tag: string) => LoggerPublisherService,
     @inject(externalTypes.ContextModule)
     private contextModule: ContextModule,
-    @inject(externalTypes.AddressBook)
-    private addressBook: TronAddressBook = EMPTY_TRON_ADDRESS_BOOK,
   ) {}
 
   getAddress(args: {
@@ -77,54 +67,9 @@ export class TronAppBinder {
           derivationPath: args.derivationPath,
           transaction: args.transaction,
           contextModule: this.contextModule,
-          addressBook: this.addressBook,
           skipOpenApp: args.skipOpenApp ?? false,
         },
         logger: this.dmkLoggerFactory("SignTransactionDeviceAction"),
-      }),
-    });
-  }
-
-  getECDHSecret(args: {
-    derivationPath: string;
-    publicKey: Uint8Array;
-    skipOpenApp?: boolean;
-  }): GetECDHSecretDAReturnType {
-    return this.dmk.executeDeviceAction({
-      sessionId: this.sessionId,
-      deviceAction: new SendCommandInAppDeviceAction({
-        input: {
-          command: new GetECDHSecretCommand({
-            derivationPath: args.derivationPath,
-            publicKey: args.publicKey,
-          }),
-          appName: APP_NAME,
-          requiredUserInteraction: UserInteractionRequired.SignTransaction,
-          skipOpenApp: args.skipOpenApp ?? false,
-        },
-        logger: this.dmkLoggerFactory("GetECDHSecretCommand"),
-      }),
-    });
-  }
-
-  signTransactionHash(args: {
-    derivationPath: string;
-    transactionHash: Uint8Array;
-    skipOpenApp?: boolean;
-  }): SignTransactionHashDAReturnType {
-    return this.dmk.executeDeviceAction({
-      sessionId: this.sessionId,
-      deviceAction: new SendCommandInAppDeviceAction({
-        input: {
-          command: new SignTransactionHashCommand({
-            derivationPath: args.derivationPath,
-            transactionHash: args.transactionHash,
-          }),
-          appName: APP_NAME,
-          requiredUserInteraction: UserInteractionRequired.SignTransaction,
-          skipOpenApp: args.skipOpenApp ?? false,
-        },
-        logger: this.dmkLoggerFactory("SignTransactionHashCommand"),
       }),
     });
   }

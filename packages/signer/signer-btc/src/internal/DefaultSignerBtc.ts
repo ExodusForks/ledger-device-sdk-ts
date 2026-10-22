@@ -4,10 +4,8 @@ import {
 } from "@ledgerhq/device-management-kit";
 import { type Container } from "inversify";
 
-import { type SignMessageDAReturnType } from "@api/app-binder/SignMessageDeviceActionTypes";
 import { type AddressOptions } from "@api/model/AddressOptions";
 import { type MasterFingerprintOptions } from "@api/model/MasterFingerprintOptions";
-import { type MessageOptions } from "@api/model/MessageOptions";
 import { type Psbt } from "@api/model/Psbt";
 import { type PsbtOptions } from "@api/model/PsbtOptions";
 import { type RegisterWalletOptions } from "@api/model/RegisterWalletOptions";
@@ -19,10 +17,8 @@ import { type GetExtendedPublicKeyUseCase } from "@internal/use-cases/get-extend
 import { type GetMasterFingerprintUseCase } from "@internal/use-cases/get-master-fingerprint/GetMasterFingerprintUseCase";
 import { type RegisterWalletUseCase } from "@internal/use-cases/register-wallet/RegisterWalletUseCase";
 import { type SignPsbtUseCase } from "@internal/use-cases/sign-psbt/SignPsbtUseCase";
-import { type SignTransactionUseCase } from "@internal/use-cases/sign-transaction/SignTransactionUseCase";
 
 import { type GetWalletAddressUseCase } from "./use-cases/get-wallet-address/GetWalletAddressUseCase";
-import { type SignMessageUseCase } from "./use-cases/sign-message/SignMessageUseCase";
 import { makeContainer } from "./di";
 
 type DefaultSignerBtcConstructorArgs = {
@@ -84,21 +80,5 @@ export class DefaultSignerBtc implements SignerBtc {
     return this._container
       .get<RegisterWalletUseCase>(useCasesTypes.RegisterWalletUseCase)
       .execute(wallet, options?.skipOpenApp ?? false);
-  }
-
-  signMessage(
-    derivationPath: string,
-    message: string,
-    options?: MessageOptions,
-  ): SignMessageDAReturnType {
-    return this._container
-      .get<SignMessageUseCase>(useCasesTypes.SignMessageUseCase)
-      .execute(derivationPath, message, options?.skipOpenApp ?? false);
-  }
-
-  signTransaction(wallet: Wallet, psbt: Psbt, options?: PsbtOptions) {
-    return this._container
-      .get<SignTransactionUseCase>(useCasesTypes.SignTransactionUseCase)
-      .execute(wallet, psbt, options?.skipOpenApp ?? false);
   }
 }

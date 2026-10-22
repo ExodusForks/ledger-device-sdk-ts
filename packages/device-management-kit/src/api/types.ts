@@ -79,13 +79,6 @@ export {
   type ListAppsDAState,
 } from "@api/device-action/os/ListApps/types";
 export {
-  type ListAppsWithMetadataDAError,
-  type ListAppsWithMetadataDAInput,
-  type ListAppsWithMetadataDAIntermediateValue,
-  type ListAppsWithMetadataDAOutput,
-  type ListAppsWithMetadataDAState,
-} from "@api/device-action/os/ListAppsWithMetadata/types";
-export {
   type OpenAppDAError,
   type OpenAppDAInput,
   type OpenAppDAIntermediateValue,
@@ -93,14 +86,6 @@ export {
   type OpenAppDARequiredInteraction,
   type OpenAppDAState,
 } from "@api/device-action/os/OpenAppDeviceAction/types";
-export {
-  type OpenAppWithDependenciesDAError,
-  type OpenAppWithDependenciesDAInput,
-  type OpenAppWithDependenciesDAIntermediateValue,
-  type OpenAppWithDependenciesDAOutput,
-  type OpenAppWithDependenciesDARequiredInteraction,
-  type OpenAppWithDependenciesDAState,
-} from "@api/device-action/os/OpenAppWithDependencies/types";
 export {
   type SendCommandInAppDAError,
   type SendCommandInAppDAInput,

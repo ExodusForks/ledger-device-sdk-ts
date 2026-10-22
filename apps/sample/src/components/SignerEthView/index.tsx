@@ -4,9 +4,6 @@ import {
   type GetAddressDAError,
   type GetAddressDAIntermediateValue,
   type GetAddressDAOutput,
-  type SignDelegationAuthorizationDAError,
-  type SignDelegationAuthorizationDAIntermediateValue,
-  type SignDelegationAuthorizationDAOutput,
   type SignPersonalMessageDAError,
   type SignPersonalMessageDAIntermediateValue,
   type SignPersonalMessageDAOutput,
@@ -38,30 +35,6 @@ export const SignerEthView: React.FC<{ sessionId: string }> = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const deviceActions: DeviceActionProps<any, any, any, any>[] = useMemo(
     () => [
-      {
-        title: "Verify safe address",
-        description:
-          "Perform all the actions necessary to verify a safe address on the device",
-        executeDeviceAction: ({
-          safeContractAddress,
-          chainId,
-          skipOpenApp,
-        }) => {
-          if (!signer) {
-            throw new Error("Signer not initialized");
-          }
-          return signer.verifySafeAddress(safeContractAddress, {
-            chainId: Number(chainId),
-            skipOpenApp,
-          });
-        },
-        initialValues: {
-          safeContractAddress: "",
-          chainId: 1,
-          skipOpenApp: false,
-        },
-        deviceModelId,
-      },
       {
         title: "Get address",
         description:
@@ -231,44 +204,6 @@ export const SignerEthView: React.FC<{ sessionId: string }> = ({
         },
         SignTypedDataDAError,
         SignTypedDataDAIntermediateValue
-      >,
-      {
-        title: "Sign Delegation Authorization",
-        description:
-          "Perform all the actions necessary to sign an EIP 7702 Delegation Authorization with the device",
-        executeDeviceAction: ({
-          derivationPath,
-          nonce,
-          contractAddress,
-          chainId,
-        }) => {
-          if (!signer) {
-            throw new Error("Signer not initialized");
-          }
-          return signer.signDelegationAuthorization(
-            derivationPath,
-            chainId,
-            contractAddress,
-            nonce,
-          );
-        },
-        initialValues: {
-          derivationPath: "44'/60'/0'/0/0",
-          nonce: 0,
-          contractAddress: "0x",
-          chainId: 1,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        SignDelegationAuthorizationDAOutput,
-        {
-          derivationPath: string;
-          nonce: number;
-          contractAddress: string;
-          chainId: number;
-        },
-        SignDelegationAuthorizationDAError,
-        SignDelegationAuthorizationDAIntermediateValue
       >,
     ],
     [deviceModelId, signer],

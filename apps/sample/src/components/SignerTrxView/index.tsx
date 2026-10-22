@@ -8,9 +8,6 @@ import {
   type GetAppConfigurationDAError,
   type GetAppConfigurationDAIntermediateValue,
   type GetAppConfigurationDAOutput,
-  type GetECDHSecretDAError,
-  type GetECDHSecretDAIntermediateValue,
-  type GetECDHSecretDAOutput,
   SignerTrxBuilder,
   type SignPersonalMessageDAError,
   type SignPersonalMessageDAIntermediateValue,
@@ -18,9 +15,6 @@ import {
   type SignTransactionDAError,
   type SignTransactionDAIntermediateValue,
   type SignTransactionDAOutput,
-  type SignTransactionHashDAError,
-  type SignTransactionHashDAIntermediateValue,
-  type SignTransactionHashDAOutput,
 } from "@ledgerhq/device-signer-kit-tron";
 
 import { DeviceActionsList } from "@/components/DeviceActionsView/DeviceActionsList";
@@ -100,39 +94,6 @@ export const SignerTrxView: React.FC<{ sessionId: string }> = ({
         SignTransactionDAIntermediateValue
       >,
       {
-        title: "Sign transaction hash",
-        description:
-          "Perform all the actions necessary to sign a transaction hash (hex-encoded 32-byte hash of the protobuf-serialized raw_data) with the device. Requires the 'sign by hash' setting to be enabled in the Tron app.",
-        executeDeviceAction: ({
-          derivationPath,
-          transactionHash,
-          skipOpenApp,
-        }) => {
-          const hash = hexaStringToBuffer(transactionHash);
-          if (!hash || hash.length === 0) {
-            throw new Error("Invalid transaction hash format");
-          }
-          return signer.signTransactionHash(derivationPath, hash, {
-            skipOpenApp,
-          });
-        },
-        initialValues: {
-          derivationPath: DEFAULT_DERIVATION_PATH,
-          transactionHash: "",
-          skipOpenApp: false,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        SignTransactionHashDAOutput,
-        {
-          derivationPath: string;
-          transactionHash: string;
-          skipOpenApp?: boolean;
-        },
-        SignTransactionHashDAError,
-        SignTransactionHashDAIntermediateValue
-      >,
-      {
         title: "Sign personal message",
         description:
           "Perform all the actions necessary to sign a personal message with the device",
@@ -171,34 +132,6 @@ export const SignerTrxView: React.FC<{ sessionId: string }> = ({
         Record<string, never>,
         GetAppConfigurationDAError,
         GetAppConfigurationDAIntermediateValue
-      >,
-      {
-        title: "Get ECDH secret",
-        description:
-          "Perform all the actions necessary to compute an ECDH shared secret between the device key and a peer's public key (hex-encoded 65-byte uncompressed secp256k1 key). Requires approval on the device.",
-        executeDeviceAction: ({ derivationPath, publicKey, skipOpenApp }) => {
-          const key = hexaStringToBuffer(publicKey);
-          if (!key || key.length === 0) {
-            throw new Error("Invalid public key format");
-          }
-          return signer.getECDHSecret(derivationPath, key, { skipOpenApp });
-        },
-        initialValues: {
-          derivationPath: DEFAULT_DERIVATION_PATH,
-          publicKey:
-            "04ff21f8e64d3a3c0198edfbb7afdc79be959432e92e2f8a1984bb436a414b8edcec0345aad0c1bf7da04fd036dd7f9f617e30669224283d950fab9dd84831dc83",
-          skipOpenApp: false,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        GetECDHSecretDAOutput,
-        {
-          derivationPath: string;
-          publicKey: string;
-          skipOpenApp?: boolean;
-        },
-        GetECDHSecretDAError,
-        GetECDHSecretDAIntermediateValue
       >,
     ],
     [deviceModelId, signer],

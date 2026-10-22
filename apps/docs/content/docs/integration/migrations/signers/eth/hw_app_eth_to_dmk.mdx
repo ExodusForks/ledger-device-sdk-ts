@@ -22,8 +22,6 @@ Before reading this guide, complete the [general LedgerJS → DMK migration](../
 | **Clear signing**        | Manual: `ledgerService.resolveTransaction()` before every `signTransaction`       | Automatic: the context module resolves metadata during signing |
 | **Device state**         | No visibility                                                                     | Observable state machine with `requiredUserInteraction`        |
 | **Cancellation**         | Not supported                                                                     | Built-in `cancel()` on every operation                         |
-| **EIP-7702**             | Not supported                                                                     | `signDelegationAuthorization`                                  |
-| **Safe address**         | Not supported                                                                     | `verifySafeAddress`                                            |
 
 ---
 
@@ -372,8 +370,6 @@ If you want to migrate incrementally, use the `toPromise` helper from the [gener
 | `signEIP712HashedMessage(path, domainHex, msgHex)` | Use `signTypedData` when structured data is available                            | EIP-712 APDU refactor in progress                      |
 | `getChallenge()`                                   | No equivalent                                                                    | Handled internally                                     |
 | `getAppConfiguration()`                            | No equivalent                                                                    | Use `dmk.sendCommand()` for raw access                 |
-| _(none)_                                           | `signDelegationAuthorization(path, chainId, contractAddress, nonce)`             | New in DMK (EIP-7702)                                  |
-| _(none)_                                           | `verifySafeAddress(safeAddress, { chainId, skipOpenApp? })`                      | New in DMK                                             |
 
 ---
 

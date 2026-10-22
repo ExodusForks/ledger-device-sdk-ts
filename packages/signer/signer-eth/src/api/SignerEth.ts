@@ -1,12 +1,9 @@
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
-import { type SignDelegationAuthorizationDAReturnType } from "@api/app-binder/SignDelegationAuthorizationTypes";
 import { type SignPersonalMessageDAReturnType } from "@api/app-binder/SignPersonalMessageDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
 import { type SignTypedDataDAReturnType } from "@api/app-binder/SignTypedDataDeviceActionTypes";
-import { type VerifySafeAddressDAReturnType } from "@api/app-binder/VerifySafeAddressDeviceActionTypes";
 import { type AddressOptions } from "@api/model/AddressOptions";
 import { type MessageOptions } from "@api/model/MessageOptions";
-import { type SafeAddressOptions } from "@api/model/SafeAddressOptions";
 import { type TransactionOptions } from "@api/model/TransactionOptions";
 import { type TypedData } from "@api/model/TypedData";
 import { type TypedDataOptions } from "@api/model/TypedDataOptions";
@@ -31,14 +28,4 @@ export interface SignerEth {
     derivationPath: string,
     options?: AddressOptions,
   ) => GetAddressDAReturnType;
-  verifySafeAddress: (
-    safeContractAddress: string,
-    options?: SafeAddressOptions,
-  ) => VerifySafeAddressDAReturnType;
-  signDelegationAuthorization: (
-    derivationPath: string,
-    chainId: number,
-    contractAddress: string,
-    nonce: number,
-  ) => SignDelegationAuthorizationDAReturnType;
 }

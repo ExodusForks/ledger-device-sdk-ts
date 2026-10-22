@@ -152,17 +152,10 @@ export class TronDMKServiceController implements ServiceController {
       originToken: this.signerConfig.originToken,
     }).withContextModule(this.contextModule!);
 
-    const { tronAddressBook } = this.signerConfig;
-    if (tronAddressBook) {
-      builder.withAddressBook(tronAddressBook);
-    }
-
     this.signer = builder.build();
     this.signingService.setSigner(this.signer);
 
-    this.logger.debug("Signer built", {
-      data: { contactGroups: tronAddressBook?.contactGroups.length ?? 0 },
-    });
+    this.logger.debug("Signer built");
   }
 
   async stop(): Promise<void> {
