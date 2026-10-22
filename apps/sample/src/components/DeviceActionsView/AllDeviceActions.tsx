@@ -40,11 +40,6 @@ import {
   type ListAppsDAIntermediateValue,
   type ListAppsDAOutput,
   ListAppsDeviceAction,
-  type ListAppsWithMetadataDAError,
-  type ListAppsWithMetadataDAInput,
-  type ListAppsWithMetadataDAIntermediateValue,
-  type ListAppsWithMetadataDAOutput,
-  ListAppsWithMetadataDeviceAction,
   type ListInstalledAppsDAError,
   type ListInstalledAppsDAInput,
   type ListInstalledAppsDAIntermediateValue,
@@ -55,10 +50,6 @@ import {
   type OpenAppDAIntermediateValue,
   type OpenAppDAOutput,
   OpenAppDeviceAction,
-  type OpenAppWithDependenciesDAError,
-  type OpenAppWithDependenciesDAIntermediateValue,
-  type OpenAppWithDependenciesDAOutput,
-  OpenAppWithDependenciesDeviceAction,
   type UninstallAppDAError,
   type UninstallAppDAInput,
   type UninstallAppDAIntermediateValue,
@@ -150,50 +141,6 @@ export const AllDeviceActions: React.FC<{ sessionId: string }> = ({
         OpenAppDAInput,
         OpenAppDAError,
         OpenAppDAIntermediateValue
-      >,
-      {
-        title: `${SECURE_CHANNEL_ICON} Open app with dependencies`,
-        description:
-          "Perform all the actions necessary to open an app on the device and install its dependencies",
-        executeDeviceAction: (
-          { appName, dependencies, requireLatestFirmware, unlockTimeout },
-          inspect,
-        ) => {
-          const application = { name: appName };
-          const dependenciesArray = dependencies
-            .split(",")
-            .map((app) => ({ name: app.trim() }));
-          const deviceAction = new OpenAppWithDependenciesDeviceAction({
-            input: {
-              application,
-              dependencies: dependenciesArray,
-              requireLatestFirmware,
-              unlockTimeout,
-            },
-            inspect,
-          });
-          return dmk.executeDeviceAction({
-            sessionId,
-            deviceAction,
-          });
-        },
-        initialValues: {
-          appName: "Ethereum",
-          dependencies: "Uniswap,1inch",
-          requireLatestFirmware: false,
-          unlockTimeout: UNLOCK_TIMEOUT,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        OpenAppWithDependenciesDAOutput,
-        {
-          appName: string;
-          dependencies: string;
-          requireLatestFirmware: boolean;
-          unlockTimeout: number;
-        },
-        OpenAppWithDependenciesDAError,
-        OpenAppWithDependenciesDAIntermediateValue
       >,
       {
         title: "Get device status",
@@ -310,28 +257,6 @@ export const AllDeviceActions: React.FC<{ sessionId: string }> = ({
         ListAppsDAInput,
         ListAppsDAError,
         ListAppsDAIntermediateValue
-      >,
-      {
-        title: "List apps with metadata",
-        description:
-          "List all applications installed on the device with additional metadata",
-        executeDeviceAction: ({ unlockTimeout }, inspect) => {
-          const deviceAction = new ListAppsWithMetadataDeviceAction({
-            input: { unlockTimeout },
-            inspect,
-          });
-          return dmk.executeDeviceAction({
-            sessionId,
-            deviceAction,
-          });
-        },
-        initialValues: { unlockTimeout: UNLOCK_TIMEOUT },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        ListAppsWithMetadataDAOutput,
-        ListAppsWithMetadataDAInput,
-        ListAppsWithMetadataDAError,
-        ListAppsWithMetadataDAIntermediateValue
       >,
       {
         title: "Get device metadata",

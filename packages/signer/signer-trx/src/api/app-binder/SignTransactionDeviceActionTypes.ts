@@ -9,7 +9,6 @@ import {
 
 import { type AppConfiguration } from "@api/model/AppConfiguration";
 import { type Signature } from "@api/model/Signature";
-import { type TronAddressBook } from "@api/model/TronAddressBook";
 import { type TronAppErrorCodes } from "@internal/app-binder/command/utils/tronApplicationErrors";
 
 export type SignTransactionDAOutput = Signature;
@@ -18,7 +17,6 @@ export type SignTransactionDAInput = {
   readonly derivationPath: string;
   readonly transaction: Uint8Array;
   readonly contextModule: ContextModule;
-  readonly addressBook: TronAddressBook;
   readonly skipOpenApp: boolean;
 };
 
@@ -35,7 +33,6 @@ export enum SignTransactionDAStep {
   OPEN_APP = "signer.trx.steps.openApp",
   GET_APP_CONFIG = "signer.trx.steps.getAppConfig",
   BUILD_CONTEXT = "signer.trx.steps.buildContext",
-  PROVIDE_CONTACT = "signer.trx.steps.provideContact",
   SIGN_TRANSACTION = "signer.trx.steps.signTransaction",
 }
 

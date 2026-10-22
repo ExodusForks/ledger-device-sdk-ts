@@ -4,9 +4,6 @@ import {
   type GetAddressDAError,
   type GetAddressDAIntermediateValue,
   type GetAddressDAOutput,
-  type GetAppConfigDAError,
-  type GetAppConfigDAIntermediateValue,
-  type GetAppConfigDAOutput,
   type SignTransactionDAError,
   type SignTransactionDAIntermediateValue,
   type SignTransactionDAOutput,
@@ -30,27 +27,6 @@ export const SignerXrpView: React.FC<{ sessionId: string }> = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const deviceActions: DeviceActionProps<any, any, any, any>[] = useMemo(
     () => [
-      {
-        title: "Get App Config",
-        description: "Get the app configuration from the device",
-        executeDeviceAction: ({ skipOpenApp }) => {
-          if (!signer) {
-            throw new Error("Signer not initialized");
-          }
-          return signer.getAppConfig({ skipOpenApp });
-        },
-        initialValues: {
-          skipOpenApp: false,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        GetAppConfigDAOutput,
-        {
-          skipOpenApp?: boolean;
-        },
-        GetAppConfigDAError,
-        GetAppConfigDAIntermediateValue
-      >,
       {
         title: "Get Address",
         description: "Get an address from the device",

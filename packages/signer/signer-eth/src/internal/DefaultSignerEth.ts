@@ -6,15 +6,11 @@ import {
 import { type Container } from "inversify";
 
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
-import { type SignDelegationAuthorizationDAReturnType } from "@api/app-binder/SignDelegationAuthorizationTypes";
 import { type SignPersonalMessageDAReturnType } from "@api/app-binder/SignPersonalMessageDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
 import { type SignTypedDataDAReturnType } from "@api/app-binder/SignTypedDataDeviceActionTypes";
-import { type VerifySafeAddressDAReturnType } from "@api/app-binder/VerifySafeAddressDeviceActionTypes";
 import { type AddressOptions } from "@api/model/AddressOptions";
-import { type EvmAddressBook } from "@api/model/EvmAddressBook";
 import { type MessageOptions } from "@api/model/MessageOptions";
-import { type SafeAddressOptions } from "@api/model/SafeAddressOptions";
 import { type TransactionOptions } from "@api/model/TransactionOptions";
 import { type TypedData } from "@api/model/TypedData";
 import { type TypedDataOptions } from "@api/model/TypedDataOptions";
@@ -24,37 +20,25 @@ import { type GetAddressUseCase } from "@internal/address/use-case/GetAddressUse
 import { makeContainer } from "@internal/di";
 import { messageTypes } from "@internal/message/di/messageTypes";
 import { type SignMessageUseCase } from "@internal/message/use-case/SignMessageUseCase";
-import { safeTypes } from "@internal/safe/di/safeTypes";
-import { type VerifySafeAddressUseCase } from "@internal/safe/use-case/VerifySafeAddressUseCase";
 import { transactionTypes } from "@internal/transaction/di/transactionTypes";
 import { type SignTransactionUseCase } from "@internal/transaction/use-case/SignTransactionUseCase";
 import { typedDataTypes } from "@internal/typed-data/di/typedDataTypes";
 import { type SignTypedDataUseCase } from "@internal/typed-data/use-case/SignTypedDataUseCase";
 
-import { eip7702Types } from "./eip7702/di/eip7702Types";
-import { type SignDelegationAuthorizationUseCase } from "./eip7702/use-case/SignDelegationAuthorizationUseCase";
-
 type DefaultSignerConstructorArgs = {
   dmk: DeviceManagementKit;
   sessionId: DeviceSessionId;
   contextModule: ContextModule;
-  addressBook?: EvmAddressBook;
 };
 
 export class DefaultSignerEth implements SignerEth {
   private _container: Container;
 
-  constructor({
-    dmk,
-    sessionId,
-    contextModule,
-    addressBook,
-  }: DefaultSignerConstructorArgs) {
+  constructor({ dmk, sessionId, contextModule }: DefaultSignerConstructorArgs) {
     this._container = makeContainer({
       dmk,
       sessionId,
       contextModule,
-      addressBook,
     });
   }
 
@@ -95,27 +79,5 @@ export class DefaultSignerEth implements SignerEth {
     return this._container
       .get<GetAddressUseCase>(addressTypes.GetAddressUseCase)
       .execute(derivationPath, options);
-  }
-
-  verifySafeAddress(
-    safeContractAddress: string,
-    options?: SafeAddressOptions,
-  ): VerifySafeAddressDAReturnType {
-    return this._container
-      .get<VerifySafeAddressUseCase>(safeTypes.VerifySafeAddressUseCase)
-      .execute(safeContractAddress, options);
-  }
-
-  signDelegationAuthorization(
-    derivationPath: string,
-    chainId: number,
-    contractAddress: string,
-    nonce: number,
-  ): SignDelegationAuthorizationDAReturnType {
-    return this._container
-      .get<SignDelegationAuthorizationUseCase>(
-        eip7702Types.SignDelegationAuthorizationUseCase,
-      )
-      .execute(derivationPath, nonce, contractAddress, chainId);
   }
 }

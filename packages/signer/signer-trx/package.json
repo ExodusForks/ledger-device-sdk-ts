@@ -38,7 +38,6 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@ledgerhq/device-contacts-kit": "workspace:^",
     "@ledgerhq/signer-utils": "workspace:^",
     "inversify": "catalog:",
     "purify-ts": "catalog:",

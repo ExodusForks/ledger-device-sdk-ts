@@ -44,6 +44,10 @@
 
 # Introduction
 
+This Exodus fork intentionally exposes a smaller API than upstream. See
+[Exodus feature usage](docs/exodus-feature-usage.md) for removed APIs, retained
+signing capabilities and integration-validation status.
+
 The Device Management Kit (DMK) is a TypeScript library that provides easy communication with Ledger devices:
 
 - Device discovery, identification, and connection

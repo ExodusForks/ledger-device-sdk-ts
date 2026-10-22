@@ -17,8 +17,6 @@ This module provides the implementation of the Ledger Ethereum signer of the Dev
    - [Sign Transaction](#use-case-2-sign-transaction)
    - [Sign Message](#use-case-3-sign-message)
    - [Sign Typed Data](#use-case-4-sign-typed-data)
-   - [Sign Delegation Authorization](#use-case-5-sign-delegation-authorization-eip-7702)
-   - [Display Safe Account](#use-case-6-display-safe-account)
 5. [Observable Behavior](#-observable-behavior)
 6. [Example](#-example)
 
@@ -53,49 +51,6 @@ const signerEth = new SignerEthBuilder({ sdk, sessionId })
   .withContextModule(customContextModule)
   .build();
 ```
-
-### Address book
-
-Give the signer the user's address book to have the device show a saved contact
-name in place of the raw recipient address when it reviews a transaction:
-
-```typescript
-const signerEth = new SignerEthBuilder({ sdk, sessionId })
-  .withAddressBook({
-    contactGroups: [
-      {
-        contactName: "Alice",
-        groupHandle, // returned when the contact was registered on the device
-        hmacProof,
-        externalAddresses: [
-          {
-            scope: "Ethereum",
-            address: "0x...",
-            chainId: 1n,
-            hmacRest,
-          },
-        ],
-      },
-    ],
-    ledgerAccounts: [],
-  })
-  .build();
-```
-
-Points to know:
-
-- The snapshot must be complete, and it is read as-is: the signer neither
-  mutates nor persists it. Build a new signer to pick up later changes.
-- Only EVM entries belong here. Filter by blockchain family before you build the
-  snapshot.
-- A contact matches on address **and** `chainId`, and only against the
-  transaction recipient. A recipient carried in calldata — an ERC-20 `transfer`,
-  for example — still reviews as a raw address.
-- A matched contact replaces the trusted name (ENS) for the same recipient.
-- Nothing here can break a signature. An address book you do not supply, a
-  recipient that does not match, an app too old to support contacts, or a
-  contact the device rejects all leave the transaction signing as before,
-  against the raw address.
 
 ## 🔹 Use Cases
 
@@ -302,101 +257,6 @@ type Signature = {
   v: number; // Recovery parameter
 };
 ```
-
-- `cancel` A function to cancel the action on the Ledger device.
-
-### Use Case 5: Sign Delegation Authorization (EIP-7702)
-
-This method enables users to sign a delegation authorization message following the [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) specification.
-
-```typescript
-const { observable, cancel } = signerEth.signDelegationAuthorization(
-  derivationPath,
-  chainId,
-  contractAddress,
-  nonce,
-);
-```
-
-#### **Parameters**
-
-- `derivationPath`
-
-  - **Required**
-  - **Type:** `string` (e.g., `"44'/60'/0'/0/0"`)
-  - The derivation path used by the Ethereum message. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
-
-- `chainId`
-
-  - **Required**
-  - **Type:** `number`
-  - The chain ID of the Ethereum network.
-
-- `contractAddress`
-
-  - **Required**
-  - **Type:** `string`
-  - The address of the contract to be authorized.
-
-- `nonce`
-
-  - **Required**
-  - **Type:** `number`
-  - The nonce of the transaction.
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates, including the following details:
-
-```typescript
-type Signature = {
-  r: `0x${string}`; // R component of the signature
-  s: `0x${string}`; // S component of the signature
-  v: number; // Recovery parameter
-};
-```
-
-- `cancel` A function to cancel the action on the Ledger device.
-
----
-
-### Use Case 6: Verify Safe Address
-
-This method enables users to display and verify a Safe account address on their Ledger device. This is particularly useful for verifying Safe (formerly Gnosis Safe) multi-signature wallet addresses.
-
-```typescript
-const { observable, cancel } = signerEth.verifySafeAddress(
-  safeContractAddress,
-  options,
-);
-```
-
-#### **Parameters**
-
-- `safeContractAddress`
-
-  - **Required**
-  - **Type:** `string`
-  - The address of the Safe contract to display and verify on the device.
-
-- `options`
-
-  - **Optional**
-  - **Type:** `SafeAddressOptions`
-
-    ```typescript
-    type SafeAddressOptions = {
-      chainId: number;
-      skipOpenApp?: boolean;
-    };
-    ```
-
-  - `chainId`: The chain ID of the Ethereum network where the Safe contract is deployed (e.g., `1` for Ethereum mainnet, `137` for Polygon).
-  - `skipOpenApp`: An optional boolean indicating whether to skip opening the Ethereum app on the device (`true`) or not (`false`). Defaults to `false`.
-
-#### **Returns**
-
-- `observable` Emits DeviceActionState updates. On successful completion, the output is `void` (no return value), indicating that the Safe account address was successfully verified on the device.
 
 - `cancel` A function to cancel the action on the Ledger device.
 

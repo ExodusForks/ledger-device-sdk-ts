@@ -146,11 +146,6 @@ export class DMKServiceController implements ServiceController {
     this.logger.info("DMK started successfully");
   }
 
-  /**
-   * Build the signer for the current session, binding the configured address
-   * book when there is one. `withAddressBook()` is build-time, which is why the
-   * book is a run-wide option rather than something a test case changes.
-   */
   private buildSigner(): void {
     if (this.sessionId === null) {
       throw new Error("Cannot build a signer before the device is connected");
@@ -162,19 +157,10 @@ export class DMKServiceController implements ServiceController {
       originToken: this.signerConfig.originToken,
     }).withContextModule(this.contextModule!);
 
-    const { addressBook } = this.signerConfig;
-    if (addressBook) {
-      builder.withAddressBook(addressBook);
-    }
-
     this.signer = builder.build();
     this.signingService.setSigner(this.signer);
 
-    this.logger.debug("Signer built", {
-      data: {
-        contactGroups: addressBook?.contactGroups.length ?? 0,
-      },
-    });
+    this.logger.debug("Signer built");
   }
 
   async stop(): Promise<void> {

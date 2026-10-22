@@ -27,18 +27,6 @@ export class XrpSignerDriver {
     await this.page.waitForURL("http://localhost:3000/signers/xrp");
   }
 
-  /**
-   * Open the Get App Config action and Execute it. With `skipOpenApp` the
-   * command is sent straight to the device, without opening the XRP app first.
-   */
-  async getAppConfig({
-    skipOpenApp = false,
-  }: { skipOpenApp?: boolean } = {}): Promise<void> {
-    await this.page.getByTestId("CTA_command-Get App Config").click();
-    await this.setSwitch("skipOpenApp", skipOpenApp);
-    await this.page.getByTestId("CTA_send-device-action").click();
-  }
-
   /** Open the Get Address action and Execute it. */
   async getAddress({
     derivationPath,

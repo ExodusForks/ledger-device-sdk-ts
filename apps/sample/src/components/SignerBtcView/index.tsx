@@ -20,15 +20,9 @@ import {
   type RegisterWalletDAIntermediateValue,
   type RegisterWalletDAOutput,
   SignerBtcBuilder,
-  type SignMessageDAError,
-  type SignMessageDAIntermediateValue,
-  type SignMessageDAOutput,
   type SignPsbtDAError,
   type SignPsbtDAIntermediateValue,
   type SignPsbtDAOutput,
-  type SignTransactionDAError,
-  type SignTransactionDAIntermediateValue,
-  type SignTransactionDAOutput,
   WalletPolicy,
 } from "@ledgerhq/device-signer-kit-bitcoin";
 
@@ -296,32 +290,6 @@ export const SignerBtcView: React.FC<{ sessionId: string }> = ({
         GetWalletAddressDAIntermediateValue
       >,
       {
-        title: "Sign message",
-        description:
-          "Perform all the actions necessary to sign a message with the device",
-        executeDeviceAction: ({ derivationPath, message, skipOpenApp }) => {
-          if (!signer) {
-            throw new Error("Signer not initialized");
-          }
-          return signer.signMessage(derivationPath, message, { skipOpenApp });
-        },
-        initialValues: {
-          derivationPath: DEFAULT_DERIVATION_PATH,
-          message: "Hello World",
-          skipOpenApp: false,
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        SignMessageDAOutput,
-        {
-          derivationPath: string;
-          message: string;
-          skipOpenApp: boolean;
-        },
-        SignMessageDAError,
-        SignMessageDAIntermediateValue
-      >,
-      {
         title: "Sign psbt",
         description:
           "Perform all the actions necessary to sign a PSBT with the device",
@@ -374,60 +342,6 @@ export const SignerBtcView: React.FC<{ sessionId: string }> = ({
         },
         SignPsbtDAError,
         SignPsbtDAIntermediateValue
-      >,
-      {
-        title: "Sign transaction",
-        description:
-          "Perform all the actions necessary to sign a PSBT with the device and extract transaction",
-        executeDeviceAction: ({
-          descriptorTemplate,
-          psbt,
-          path,
-          skipOpenApp,
-        }) => {
-          if (!signer) {
-            throw new Error("Signer not initialized");
-          }
-
-          return signer.signTransaction(
-            new DefaultWallet(path, descriptorTemplate),
-            psbt,
-            { skipOpenApp },
-          );
-        },
-        initialValues: {
-          descriptorTemplate: DefaultDescriptorTemplate.NATIVE_SEGWIT,
-          path: DEFAULT_DERIVATION_PATH,
-          psbt: "",
-          skipOpenApp: false,
-        },
-        valueSelector: {
-          descriptorTemplate: descriptorTemplateOptions,
-        },
-        labelSelector: {
-          descriptorTemplate: "Wallet address type",
-          path: "Derivation path",
-          psbt: "PSBT",
-          skipOpenApp: "Skip open app",
-        },
-        linkedFields: {
-          descriptorTemplate: (newValue) => ({
-            path: descriptorTemplateToDerivationPath[
-              newValue as DefaultDescriptorTemplate
-            ],
-          }),
-        },
-        deviceModelId,
-      } satisfies DeviceActionProps<
-        SignTransactionDAOutput,
-        {
-          descriptorTemplate: DefaultDescriptorTemplate;
-          path: string;
-          psbt: string;
-          skipOpenApp: boolean;
-        },
-        SignTransactionDAError,
-        SignTransactionDAIntermediateValue
       >,
     ],
     [deviceModelId, signer],

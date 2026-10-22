@@ -7,10 +7,8 @@ export const LEDGER_CLA = 0xe0;
 export const INS = {
   GET_ADDRESS: 0x02,
   SIGN_TRANSACTION: 0x04,
-  SIGN_TRANSACTION_HASH: 0x05,
   GET_APP_CONFIGURATION: 0x06,
   SIGN_PERSONAL_MESSAGE: 0x08,
-  ECDH_SECRET: 0x0a,
 } as const;
 
 // Maximum APDU payload chunk size used by the Tron application.
@@ -24,9 +22,6 @@ export const SIGNATURE_LENGTH = 65;
 
 // Length of a chain code returned by the GetAddress command.
 export const CHAIN_CODE_LENGTH = 32;
-
-// Length of the ECDH shared point (0x04 || X || Y) returned by ECDH_SECRET.
-export const ECDH_SECRET_LENGTH = 65;
 
 /**
  * P1 "start byte" values for the SIGN_TRANSACTION instruction.

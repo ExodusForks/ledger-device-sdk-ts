@@ -1,10 +1,6 @@
 import { type ContextModule } from "@ledgerhq/context-module";
 import { type DeviceManagementKit } from "@ledgerhq/device-management-kit";
 
-import {
-  EMPTY_TRON_ADDRESS_BOOK,
-  type TronAddressBook,
-} from "@api/model/TronAddressBook";
 import { SignerTrxBuilder } from "@api/SignerTrxBuilder";
 import { APP_NAME, INS, LEDGER_CLA } from "@internal/app-binder/constants";
 import { DefaultSignerTrx } from "@internal/DefaultSignerTrx";
@@ -28,6 +24,17 @@ describe("SignerTrxBuilder", () => {
     const signer = builder.build();
 
     expect(signer).toBeInstanceOf(DefaultSignerTrx);
+    expect(builder).not.toHaveProperty("withAddressBook");
+    expect(signer).not.toHaveProperty("getECDHSecret");
+    expect(signer).not.toHaveProperty("signTransactionHash");
+    for (const name of [
+      "getAddress",
+      "getAppConfiguration",
+      "signTransaction",
+      "signPersonalMessage",
+    ]) {
+      expect(signer).toHaveProperty(name, expect.any(Function));
+    }
   });
   test("should build with a default Tron context module", () => {
     const builder = new SignerTrxBuilder(defaultConstructorArgs);
@@ -48,87 +55,6 @@ describe("SignerTrxBuilder", () => {
     expect(
       signer["_container"].get<ContextModule>(externalTypes.ContextModule),
     ).toBe(contextModule);
-  });
-
-  test("should build with an empty address book by default", () => {
-    const builder = new SignerTrxBuilder(defaultConstructorArgs);
-
-    const signer = builder.build();
-
-    expect(
-      signer["_container"].get<TronAddressBook>(externalTypes.AddressBook),
-    ).toEqual(EMPTY_TRON_ADDRESS_BOOK);
-  });
-
-  test("should build with a custom address book", () => {
-    const builder = new SignerTrxBuilder(defaultConstructorArgs);
-    const addressBook: TronAddressBook = {
-      contactGroups: [
-        {
-          contactName: "Alice",
-          groupHandle: Uint8Array.from([0x01, 0x02]),
-          hmacProof: Uint8Array.from([0x03, 0x04]),
-          externalAddresses: [
-            {
-              scope: "TRX",
-              address: "TQ3zvJoxUCS3PtcAJ8f1FhezAxrEDbjyKh",
-              hmacRest: Uint8Array.from([0x05]),
-            },
-          ],
-        },
-      ],
-      ledgerAccounts: [
-        {
-          accountName: "Main account",
-          derivationPath: "44'/195'/0'/0/0",
-          hmacProof: Uint8Array.from([0x06]),
-        },
-      ],
-    };
-
-    const signer = builder.withAddressBook(addressBook).build();
-
-    expect(signer).toBeInstanceOf(DefaultSignerTrx);
-    expect(
-      signer["_container"].get<TronAddressBook>(externalTypes.AddressBook),
-    ).toBe(addressBook);
-  });
-
-  test("should preserve a contact group holding several addresses", () => {
-    const builder = new SignerTrxBuilder(defaultConstructorArgs);
-    const addressBook: TronAddressBook = {
-      contactGroups: [
-        {
-          contactName: "Bob",
-          groupHandle: Uint8Array.from([0x0a]),
-          hmacProof: Uint8Array.from([0x0b]),
-          externalAddresses: [
-            {
-              scope: "TRX",
-              address: "TN3W4H6rK2ce4vX9YnFQHwKENnHjoxb3m9",
-              hmacRest: Uint8Array.from([0x0c]),
-            },
-            {
-              scope: "USDT",
-              address: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
-              hmacRest: Uint8Array.from([0x0d]),
-            },
-          ],
-        },
-      ],
-      ledgerAccounts: [],
-    };
-
-    const signer = builder.withAddressBook(addressBook).build();
-    const bound = signer["_container"].get<TronAddressBook>(
-      externalTypes.AddressBook,
-    );
-
-    expect(bound.contactGroups).toHaveLength(1);
-    expect(bound.contactGroups[0]!.externalAddresses).toHaveLength(2);
-    expect(
-      bound.contactGroups[0]!.externalAddresses.map((a) => a.scope),
-    ).toEqual(["TRX", "USDT"]);
   });
 });
 

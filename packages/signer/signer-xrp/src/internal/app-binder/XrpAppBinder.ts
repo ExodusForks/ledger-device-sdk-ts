@@ -2,18 +2,13 @@ import {
   type DeviceManagementKit,
   type DeviceSessionId,
   type LoggerPublisherService,
-  SendCommandInAppDeviceAction,
-  UserInteractionRequired,
 } from "@ledgerhq/device-management-kit";
 import { inject, injectable } from "inversify";
 
 import { type GetAddressDAReturnType } from "@api/app-binder/GetAddressDeviceActionTypes";
-import { type GetAppConfigDAReturnType } from "@api/app-binder/GetAppConfigDeviceActionTypes";
 import { type SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
-import { APP_NAME } from "@internal/app-binder/constants";
 import { externalTypes } from "@internal/externalTypes";
 
-import { GetAppConfigCommand } from "./command/GetAppConfigCommand";
 import { GetAddressDeviceActionFactory } from "./device-action/GetAddressDeviceActionFactory";
 import { SignTransactionDeviceActionFactory } from "./device-action/SignTransactionDeviceActionFactory";
 
@@ -25,20 +20,6 @@ export class XrpAppBinder {
     @inject(externalTypes.DmkLoggerFactory)
     private dmkLoggerFactory: (tag: string) => LoggerPublisherService,
   ) {}
-
-  getAppConfig(args: { skipOpenApp: boolean }): GetAppConfigDAReturnType {
-    return this.dmk.executeDeviceAction({
-      sessionId: this.sessionId,
-      deviceAction: new SendCommandInAppDeviceAction({
-        input: {
-          command: new GetAppConfigCommand(),
-          appName: APP_NAME,
-          requiredUserInteraction: UserInteractionRequired.None,
-          skipOpenApp: args.skipOpenApp,
-        },
-      }),
-    });
-  }
 
   getAddress(args: {
     derivationPath: string;

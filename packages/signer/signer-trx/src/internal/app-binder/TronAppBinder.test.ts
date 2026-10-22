@@ -22,11 +22,6 @@ import {
   type GetAppConfigurationDAOutput,
 } from "@api/app-binder/GetAppConfigurationDeviceActionTypes";
 import {
-  type GetECDHSecretDAError,
-  type GetECDHSecretDAIntermediateValue,
-  type GetECDHSecretDAOutput,
-} from "@api/app-binder/GetECDHSecretDeviceActionTypes";
-import {
   type SignPersonalMessageDAError,
   type SignPersonalMessageDAIntermediateValue,
   type SignPersonalMessageDAOutput,
@@ -36,16 +31,8 @@ import {
   type SignTransactionDAIntermediateValue,
   type SignTransactionDAOutput,
 } from "@api/app-binder/SignTransactionDeviceActionTypes";
-import {
-  type SignTransactionHashDAError,
-  type SignTransactionHashDAIntermediateValue,
-  type SignTransactionHashDAOutput,
-} from "@api/app-binder/SignTransactionHashDeviceActionTypes";
-import { EMPTY_TRON_ADDRESS_BOOK } from "@api/model/TronAddressBook";
 import { GetAddressCommand } from "@internal/app-binder/command/GetAddressCommand";
 import { GetAppConfigurationCommand } from "@internal/app-binder/command/GetAppConfigurationCommand";
-import { GetECDHSecretCommand } from "@internal/app-binder/command/GetECDHSecretCommand";
-import { SignTransactionHashCommand } from "@internal/app-binder/command/SignTransactionHashCommand";
 import { type TronAppCommandError } from "@internal/app-binder/command/utils/tronApplicationErrors";
 import { APP_NAME } from "@internal/app-binder/constants";
 import { SignTransactionDeviceAction } from "@internal/app-binder/device-action/SignTransaction/SignTransactionDeviceAction";
@@ -214,7 +201,6 @@ describe("TronAppBinder", () => {
   describe("signTransaction", () => {
     const derivationPath = "44'/195'/0'/0/0";
     const transaction = Uint8Array.from([0x0a, 0x01, 0x00]);
-    const addressBook = EMPTY_TRON_ADDRESS_BOOK;
 
     it("should return the signature", () =>
       new Promise<void>((resolve, reject) => {
@@ -241,7 +227,6 @@ describe("TronAppBinder", () => {
           "sessionId",
           loggerFactoryMock,
           contextModuleMock,
-          addressBook,
         );
         const { observable } = binder.signTransaction({
           derivationPath,
@@ -288,7 +273,6 @@ describe("TronAppBinder", () => {
           "sessionId",
           loggerFactoryMock,
           contextModuleMock,
-          addressBook,
         );
         binder.signTransaction({
           derivationPath,
@@ -301,7 +285,6 @@ describe("TronAppBinder", () => {
         expect(deviceAction.input.derivationPath).toBe(derivationPath);
         expect(deviceAction.input.transaction).toBe(transaction);
         expect(deviceAction.input.contextModule).toBe(contextModuleMock);
-        expect(deviceAction.input.addressBook).toBe(addressBook);
         expect(deviceAction.input.skipOpenApp).toBe(true);
       });
 
@@ -317,133 +300,6 @@ describe("TronAppBinder", () => {
 
         // THEN
         expect(executedDeviceAction().input.skipOpenApp).toBe(false);
-      });
-    });
-  });
-
-  describe("signTransactionHash", () => {
-    const derivationPath = "44'/195'/0'/0/0";
-    const transactionHash = new Uint8Array(32).fill(0x25);
-
-    it("should return the signature", () =>
-      new Promise<void>((resolve, reject) => {
-        // GIVEN
-        const output: SignTransactionHashDAOutput = new Uint8Array(65).fill(
-          0xab,
-        );
-
-        vi.spyOn(mockedDmk, "executeDeviceAction").mockReturnValue({
-          observable: from([
-            {
-              status: DeviceActionStatus.Completed,
-              output,
-            } as DeviceActionState<
-              SignTransactionHashDAOutput,
-              SignTransactionHashDAError,
-              SignTransactionHashDAIntermediateValue
-            >,
-          ]),
-          cancel: vi.fn(),
-        });
-
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        const { observable } = binder.signTransactionHash({
-          derivationPath,
-          transactionHash,
-        });
-
-        // THEN
-        const states: DeviceActionState<
-          SignTransactionHashDAOutput,
-          SignTransactionHashDAError,
-          SignTransactionHashDAIntermediateValue
-        >[] = [];
-        observable.subscribe({
-          next: (state) => states.push(state),
-          error: reject,
-          complete: () => {
-            try {
-              expect(states).toEqual([
-                { status: DeviceActionStatus.Completed, output },
-              ]);
-              resolve();
-            } catch (err) {
-              reject(err as Error);
-            }
-          },
-        });
-      }));
-
-    describe("calls executeDeviceAction with the correct params", () => {
-      it("requires the SignTransaction interaction", () => {
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        binder.signTransactionHash({
-          derivationPath,
-          transactionHash,
-          skipOpenApp: true,
-        });
-
-        // THEN
-        expect(mockedDmk.executeDeviceAction).toHaveBeenCalledWith(
-          expect.objectContaining({
-            sessionId: "sessionId",
-            deviceAction: new SendCommandInAppDeviceAction({
-              input: {
-                command: new SignTransactionHashCommand({
-                  derivationPath,
-                  transactionHash,
-                }),
-                appName: APP_NAME,
-                requiredUserInteraction:
-                  UserInteractionRequired.SignTransaction,
-                skipOpenApp: true,
-              },
-              logger: loggerMock,
-            }),
-          }),
-        );
-      });
-
-      it("defaults skipOpenApp to false", () => {
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        binder.signTransactionHash({ derivationPath, transactionHash });
-
-        // THEN
-        expect(mockedDmk.executeDeviceAction).toHaveBeenCalledWith(
-          expect.objectContaining({
-            deviceAction: new SendCommandInAppDeviceAction({
-              input: {
-                command: new SignTransactionHashCommand({
-                  derivationPath,
-                  transactionHash,
-                }),
-                appName: APP_NAME,
-                requiredUserInteraction:
-                  UserInteractionRequired.SignTransaction,
-                skipOpenApp: false,
-              },
-              logger: loggerMock,
-            }),
-          }),
-        );
       });
     });
   });
@@ -644,127 +500,6 @@ describe("TronAppBinder", () => {
           }),
         }),
       );
-    });
-  });
-
-  describe("getECDHSecret", () => {
-    const derivationPath = "44'/195'/0'/0/0";
-    const publicKey = new Uint8Array(65).fill(0x04);
-
-    it("should return the shared secret", () =>
-      new Promise<void>((resolve, reject) => {
-        // GIVEN
-        const output: GetECDHSecretDAOutput = new Uint8Array(65).fill(0xcd);
-
-        vi.spyOn(mockedDmk, "executeDeviceAction").mockReturnValue({
-          observable: from([
-            {
-              status: DeviceActionStatus.Completed,
-              output,
-            } as DeviceActionState<
-              GetECDHSecretDAOutput,
-              GetECDHSecretDAError,
-              GetECDHSecretDAIntermediateValue
-            >,
-          ]),
-          cancel: vi.fn(),
-        });
-
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        const { observable } = binder.getECDHSecret({
-          derivationPath,
-          publicKey,
-        });
-
-        // THEN
-        const states: DeviceActionState<
-          GetECDHSecretDAOutput,
-          GetECDHSecretDAError,
-          GetECDHSecretDAIntermediateValue
-        >[] = [];
-        observable.subscribe({
-          next: (state) => states.push(state),
-          error: reject,
-          complete: () => {
-            try {
-              expect(states).toEqual([
-                { status: DeviceActionStatus.Completed, output },
-              ]);
-              resolve();
-            } catch (err) {
-              reject(err as Error);
-            }
-          },
-        });
-      }));
-
-    describe("calls executeDeviceAction with the correct params", () => {
-      it("requires the SignTransaction interaction", () => {
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        binder.getECDHSecret({ derivationPath, publicKey, skipOpenApp: true });
-
-        // THEN
-        expect(mockedDmk.executeDeviceAction).toHaveBeenCalledWith(
-          expect.objectContaining({
-            sessionId: "sessionId",
-            deviceAction: new SendCommandInAppDeviceAction({
-              input: {
-                command: new GetECDHSecretCommand({
-                  derivationPath,
-                  publicKey,
-                }),
-                appName: APP_NAME,
-                requiredUserInteraction:
-                  UserInteractionRequired.SignTransaction,
-                skipOpenApp: true,
-              },
-              logger: loggerMock,
-            }),
-          }),
-        );
-      });
-
-      it("defaults skipOpenApp to false", () => {
-        // WHEN
-        const binder = new TronAppBinder(
-          mockedDmk,
-          "sessionId",
-          loggerFactoryMock,
-          contextModuleMock,
-        );
-        binder.getECDHSecret({ derivationPath, publicKey });
-
-        // THEN
-        expect(mockedDmk.executeDeviceAction).toHaveBeenCalledWith(
-          expect.objectContaining({
-            deviceAction: new SendCommandInAppDeviceAction({
-              input: {
-                command: new GetECDHSecretCommand({
-                  derivationPath,
-                  publicKey,
-                }),
-                appName: APP_NAME,
-                requiredUserInteraction:
-                  UserInteractionRequired.SignTransaction,
-                skipOpenApp: false,
-              },
-              logger: loggerMock,
-            }),
-          }),
-        );
-      });
     });
   });
 });

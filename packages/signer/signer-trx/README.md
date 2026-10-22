@@ -26,12 +26,6 @@ const { observable: signObservable } = signer.signTransaction(
   rawTransaction,
 );
 
-// Sign a transaction hash (requires the "Sign by hash" app setting)
-const { observable: hashObservable } = signer.signTransactionHash(
-  "44'/195'/0'/0/0",
-  transactionHash,
-);
-
 // Sign a personal message
 const { observable: messageObservable } = signer.signPersonalMessage(
   "44'/195'/0'/0/0",
@@ -40,54 +34,7 @@ const { observable: messageObservable } = signer.signPersonalMessage(
 
 // Read the Tron app configuration
 const { observable: configObservable } = signer.getAppConfiguration();
-
-// Compute an ECDH shared secret with a peer public key
-const { observable: ecdhObservable } = signer.getECDHSecret(
-  "44'/195'/0'/0/0",
-  peerPublicKey,
-);
 ```
-
-### Address book
-
-Give the signer the user's address book to have the device show a saved contact
-name in place of the raw recipient address when it reviews a transaction:
-
-```typescript
-const signer = new SignerTrxBuilder({ dmk, sessionId })
-  .withAddressBook({
-    contactGroups: [
-      {
-        contactName: "Alice",
-        groupHandle, // returned when the contact was registered on the device
-        hmacProof,
-        externalAddresses: [
-          {
-            scope: "Tron",
-            address: "T...",
-            hmacRest,
-          },
-        ],
-      },
-    ],
-    ledgerAccounts: [],
-  })
-  .build();
-```
-
-Points to know:
-
-- The snapshot must be complete, and it is read as-is: the signer neither
-  mutates nor persists it. Build a new signer to pick up later changes.
-- Only Tron entries belong here. Filter by blockchain family before you build
-  the snapshot.
-- A contact matches on the raw address only (Tron has no chain id). Only the
-  transaction recipient is matched: `to_address` on Transfer / TransferAsset,
-  `contract_address` on TriggerSmartContract.
-- Nothing here can break a signature. An address book you do not supply, a
-  recipient that does not match, an app too old to support contacts, or a
-  contact the device rejects all leave the transaction signing as before,
-  against the raw address.
 
 ### Get address
 
@@ -210,47 +157,6 @@ observable.subscribe((state) => {
 });
 ```
 
-### Sign transaction hash
-
-Signs a transaction hash directly, without transmitting (or reviewing) the
-transaction itself — the device only displays the hash. Use with care: the
-signer cannot verify what is being signed. Only accepted by the Tron app when
-its **"Sign by hash"** setting is enabled on the device (see the `signByHash`
-flag returned by `getAppConfiguration()`); otherwise the device action fails.
-
-```typescript
-signer.signTransactionHash(
-  derivationPath: string,
-  // the 32-byte hash of the protobuf-serialized `raw_data` of the transaction
-  transactionHash: Uint8Array,
-  options?: {
-    // Skip the "open app" step if the Tron app is already open (default: false).
-    skipOpenApp?: boolean;
-  },
-): SignTransactionHashDAReturnType;
-```
-
-The returned device action resolves to the 65-byte signature
-(`r[32] + s[32] + v[1]`) as a `Uint8Array`.
-
-```typescript
-const { observable, cancel } = signer.signTransactionHash(
-  "44'/195'/0'/0/0",
-  transactionHash,
-);
-
-observable.subscribe((state) => {
-  switch (state.status) {
-    case "completed":
-      console.log(state.output); // Uint8Array(65) signature
-      break;
-    case "error":
-      console.error(state.error);
-      break;
-  }
-});
-```
-
 ### Sign personal message
 
 Signs a personal (TIP-191-style) message. A `string` message is UTF-8 encoded;
@@ -283,45 +189,6 @@ observable.subscribe((state) => {
   switch (state.status) {
     case "completed":
       console.log(state.output); // Uint8Array(65) signature
-      break;
-    case "error":
-      console.error(state.error);
-      break;
-  }
-});
-```
-
-### Get ECDH secret
-
-Computes an ECDH shared secret between the device key (derived from the BIP32
-path) and a peer's uncompressed secp256k1 public key. The operation is shown on
-the device for approval.
-
-```typescript
-signer.getECDHSecret(
-  derivationPath: string,
-  // the peer's uncompressed secp256k1 public key (65 bytes, 0x04 || X || Y)
-  publicKey: Uint8Array,
-  options?: {
-    // Skip the "open app" step if the Tron app is already open (default: false).
-    skipOpenApp?: boolean;
-  },
-): GetECDHSecretDAReturnType;
-```
-
-The returned device action resolves to the 65-byte ECDH shared point
-(`0x04 || X || Y`) as a `Uint8Array`.
-
-```typescript
-const { observable, cancel } = signer.getECDHSecret(
-  "44'/195'/0'/0/0",
-  peerPublicKey,
-);
-
-observable.subscribe((state) => {
-  switch (state.status) {
-    case "completed":
-      console.log(state.output); // Uint8Array(65) shared point
       break;
     case "error":
       console.error(state.error);

@@ -23,11 +23,6 @@ import {
   type ListAppsDAIntermediateValue,
   type ListAppsDAOutput,
   ListAppsDeviceAction,
-  type ListAppsWithMetadataDAError,
-  type ListAppsWithMetadataDAInput,
-  type ListAppsWithMetadataDAIntermediateValue,
-  type ListAppsWithMetadataDAOutput,
-  ListAppsWithMetadataDeviceAction,
   type OpenAppDAError,
   type OpenAppDAInput,
   type OpenAppDAIntermediateValue,
@@ -151,30 +146,6 @@ export const getDeviceActions = (
     ListAppsDAInput,
     ListAppsDAError,
     ListAppsDAIntermediateValue
-  >,
-  {
-    id: "list_apps_with_metadata",
-    title: "List apps with metadata",
-    description:
-      "List all applications installed on the device with additional metadata",
-    executeDeviceAction: ({ unlockTimeout }, inspect) => {
-      const deviceAction = new ListAppsWithMetadataDeviceAction({
-        input: { unlockTimeout },
-        inspect,
-      });
-      return dmk.executeDeviceAction({
-        sessionId,
-        deviceAction,
-      });
-    },
-    initialValues: { unlockTimeout: UNLOCK_TIMEOUT },
-    deviceModelId,
-    FormComponent: () => null,
-  } satisfies DeviceActionProps<
-    ListAppsWithMetadataDAOutput,
-    ListAppsWithMetadataDAInput,
-    ListAppsWithMetadataDAError,
-    ListAppsWithMetadataDAIntermediateValue
   >,
   {
     id: "install_app",

@@ -20,18 +20,14 @@ import {
   RegisterWalletDAInput,
   RegisterWalletDAReturnType,
 } from "@api/app-binder/RegisterWalletDeviceActionTypes";
-import { SignMessageDAReturnType } from "@api/app-binder/SignMessageDeviceActionTypes";
 import { SignPsbtDAReturnType } from "@api/app-binder/SignPsbtDeviceActionTypes";
-import { SignTransactionDAReturnType } from "@api/app-binder/SignTransactionDeviceActionTypes";
 import { GetWalletAddressDAReturnType } from "@api/index";
 import { Psbt } from "@api/model/Psbt";
 import { Wallet } from "@api/model/Wallet";
 import { GetExtendedPublicKeyCommand } from "@internal/app-binder/command/GetExtendedPublicKeyCommand";
 import { GetMasterFingerprintCommand } from "@internal/app-binder/command/GetMasterFingerprintCommand";
 import { SignPsbtDeviceAction } from "@internal/app-binder/device-action/SignPsbt/SignPsbtDeviceAction";
-import { SignTransactionDeviceAction } from "@internal/app-binder/device-action/SignTransaction/SignTransactionDeviceAction";
 import { RegisterWalletTask } from "@internal/app-binder/task/RegisterWalletTask";
-import { SendSignMessageTask } from "@internal/app-binder/task/SignMessageTask";
 import { dataStoreTypes } from "@internal/data-store/di/dataStoreTypes";
 import type { DataStoreService } from "@internal/data-store/service/DataStoreService";
 import { externalTypes } from "@internal/externalTypes";
@@ -102,34 +98,6 @@ export class BtcAppBinder {
     });
   }
 
-  signMessage(args: {
-    derivationPath: string;
-    message: string;
-    skipOpenApp: boolean;
-  }): SignMessageDAReturnType {
-    return this._dmk.executeDeviceAction({
-      sessionId: this._sessionId,
-      deviceAction: new CallTaskInAppDeviceAction({
-        input: {
-          task: async (internalApi) =>
-            new SendSignMessageTask(
-              internalApi,
-              {
-                derivationPath: args.derivationPath,
-                message: args.message,
-                loggerFactory: this._dmkLoggerFactory,
-              },
-              this._dataStoreService,
-            ).run(),
-          appName: APP_NAME,
-          requiredUserInteraction: UserInteractionRequired.SignPersonalMessage,
-          skipOpenApp: args.skipOpenApp,
-        },
-        logger: this._dmkLoggerFactory("SendSignMessageTask"),
-      }),
-    });
-  }
-
   signPsbt(args: {
     psbt: Psbt;
     wallet: Wallet;
@@ -172,29 +140,6 @@ export class BtcAppBinder {
           walletBuilder: this._walletBuilder,
           walletSerializer: this._walletSerializer,
           dataStoreService: this._dataStoreService,
-        },
-        loggerFactory: this._dmkLoggerFactory,
-      }),
-    });
-  }
-
-  signTransaction(args: {
-    psbt: Psbt;
-    wallet: Wallet;
-    skipOpenApp: boolean;
-  }): SignTransactionDAReturnType {
-    return this._dmk.executeDeviceAction({
-      sessionId: this._sessionId,
-      deviceAction: new SignTransactionDeviceAction({
-        input: {
-          psbt: args.psbt,
-          wallet: args.wallet,
-          walletBuilder: this._walletBuilder,
-          walletSerializer: this._walletSerializer,
-          dataStoreService: this._dataStoreService,
-          psbtMapper: this._psbtMapper,
-          valueParser: this._valueParser,
-          skipOpenApp: args.skipOpenApp,
         },
         loggerFactory: this._dmkLoggerFactory,
       }),

@@ -1912,9 +1912,6 @@ importers:
       '@exodus/ethersproject-rlp':
         specifier: 'catalog:'
         version: 5.4.2-exodus.2
-      '@ledgerhq/device-contacts-kit':
-        specifier: workspace:^
-        version: link:../../device-contacts-kit
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -2160,9 +2157,6 @@ importers:
       '@exodus/device-reactivity':
         specifier: 'catalog:'
         version: 0.1.1
-      '@ledgerhq/device-contacts-kit':
-        specifier: workspace:^
-        version: link:../../device-contacts-kit
       '@ledgerhq/signer-utils':
         specifier: workspace:^
         version: link:../signer-utils
@@ -10222,11 +10216,6 @@ packages:
 
   isomorphic-ws@4.0.1:
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
-    peerDependencies:
-      ws: '*'
-
-  isomorphic-ws@5.0.0:
-    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
     peerDependencies:
       ws: '*'
 
@@ -18620,18 +18609,6 @@ snapshots:
 
   '@standard-schema/utils@0.3.0': {}
 
-  '@statelyai/inspect@0.4.0(ws@8.21.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))(xstate@5.19.2)':
-    dependencies:
-      fast-safe-stringify: 2.1.1
-      isomorphic-ws: 5.0.0(ws@8.21.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      partysocket: 0.0.25
-      safe-stable-stringify: 2.4.3
-      superjson: 1.13.3
-      uuid: 9.0.1
-      xstate: 5.19.2
-    transitivePeerDependencies:
-      - ws
-
   '@styled-system/background@5.1.2':
     dependencies:
       '@styled-system/core': 5.1.2
@@ -22974,10 +22951,6 @@ snapshots:
   isomorphic-ws@4.0.1(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
       ws: 7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-
-  isomorphic-ws@5.0.0(ws@8.21.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
-    dependencies:
-      ws: 8.21.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
   istanbul-lib-coverage@3.2.2: {}
 

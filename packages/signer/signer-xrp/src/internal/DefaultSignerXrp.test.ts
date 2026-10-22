@@ -2,27 +2,10 @@ import { from } from "@exodus/device-reactivity";
 import {
   type DeviceManagementKit,
   type DeviceSessionId,
-  SendCommandInAppDeviceAction,
-  UserInteractionRequired,
 } from "@ledgerhq/device-management-kit";
 import { vi } from "vitest";
 
-import { GetAppConfigCommand } from "@internal/app-binder/command/GetAppConfigCommand";
-import { APP_NAME } from "@internal/app-binder/constants";
-
 import { DefaultSignerXrp } from "./DefaultSignerXrp";
-
-type GetAppConfigCallArgs = {
-  sessionId: DeviceSessionId;
-  deviceAction: {
-    input: {
-      command: GetAppConfigCommand;
-      appName: string;
-      requiredUserInteraction: UserInteractionRequired;
-      skipOpenApp: boolean;
-    };
-  };
-};
 
 describe("DefaultSignerXrp", () => {
   const sessionId = "test-session-id" as DeviceSessionId;
@@ -30,7 +13,10 @@ describe("DefaultSignerXrp", () => {
   const setup = () => {
     const expectedResult = { observable: from([]), cancel: vi.fn() };
     const executeDeviceAction = vi.fn().mockReturnValue(expectedResult);
-    const dmk = { executeDeviceAction } as unknown as DeviceManagementKit;
+    const dmk = {
+      executeDeviceAction,
+      getLoggerFactory: () => () => ({}),
+    } as unknown as DeviceManagementKit;
 
     return {
       executeDeviceAction,
@@ -48,45 +34,22 @@ describe("DefaultSignerXrp", () => {
     expect(signer).toBeDefined();
   });
 
-  describe("getAppConfig", () => {
-    it("should delegate to the use case and return its result", () => {
-      // GIVEN
-      const { executeDeviceAction, expectedResult, signer } = setup();
+  it("keeps address retrieval without app configuration", () => {
+    const { signer, expectedResult, executeDeviceAction } = setup();
+    expect(signer.getAddress("44'/144'/0'/0/0", { skipOpenApp: true })).toBe(
+      expectedResult,
+    );
+    expect(executeDeviceAction).toHaveBeenCalledTimes(1);
+    expect(signer).not.toHaveProperty("getAppConfig");
+  });
 
-      // WHEN
-      const result = signer.getAppConfig();
-
-      // THEN
-      expect(result).toBe(expectedResult);
-      expect(executeDeviceAction).toHaveBeenCalledTimes(1);
-
-      const callArgs = executeDeviceAction.mock
-        .calls[0]![0] as GetAppConfigCallArgs;
-      expect(callArgs.sessionId).toBe(sessionId);
-      expect(callArgs.deviceAction).toBeInstanceOf(
-        SendCommandInAppDeviceAction,
-      );
-      expect(callArgs.deviceAction.input.command).toBeInstanceOf(
-        GetAppConfigCommand,
-      );
-      expect(callArgs.deviceAction.input.appName).toBe(APP_NAME);
-      expect(callArgs.deviceAction.input.requiredUserInteraction).toBe(
-        UserInteractionRequired.None,
-      );
-      expect(callArgs.deviceAction.input.skipOpenApp).toBe(false);
-    });
-
-    it("should forward skipOpenApp", () => {
-      // GIVEN
-      const { executeDeviceAction, signer } = setup();
-
-      // WHEN
-      signer.getAppConfig({ skipOpenApp: true });
-
-      // THEN
-      const callArgs = executeDeviceAction.mock
-        .calls[0]![0] as GetAppConfigCallArgs;
-      expect(callArgs.deviceAction.input.skipOpenApp).toBe(true);
-    });
+  it("keeps transaction signing without app configuration", () => {
+    const { signer, expectedResult, executeDeviceAction } = setup();
+    expect(
+      signer.signTransaction("44'/144'/0'/0/0", new Uint8Array([0x12]), {
+        skipOpenApp: true,
+      }),
+    ).toBe(expectedResult);
+    expect(executeDeviceAction).toHaveBeenCalledTimes(1);
   });
 });

@@ -18,11 +18,9 @@ import { ListAppsCommandHandler } from "@ldmk/app/handlers/device-command/handle
 import { OpenAppCommandHandler } from "@ldmk/app/handlers/device-command/handlers/OpenAppCommandHandler";
 import { SendDeviceCommandActionHandler } from "@ldmk/app/handlers/device-command/SendDeviceCommandActionHandler";
 import { GetAddressEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/GetAddressEthSignerActionHandler";
-import { SignDelegationAuthorizationEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/SignDelegationAuthorizationEthSignerActionHandler";
 import { SignMessageEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/SignMessageEthSignerActionHandler";
 import { SignTransactionEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/SignTransactionEthSignerActionHandler";
 import { SignTypedDataEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/SignTypedDataEthSignerActionHandler";
-import { VerifySafeAddressEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/handlers/VerifySafeAddressEthSignerAction";
 import { UseEthSignerActionHandler } from "@ldmk/app/handlers/signer/handlers/eth-signer/UseEthSignerActionHandler";
 import { UseSignerActionHandler } from "@ldmk/app/handlers/signer/UseSignerActionHandler";
 import { AppState } from "@ldmk/app/state/AppState";
@@ -89,15 +87,9 @@ export const appModule = new ContainerModule(({ bind }) => {
   bind(appTypes.SignerActionHandler).to(UseEthSignerActionHandler);
   // Eth Signer Actions
   bind(appTypes.EthSignerActionHandler).to(GetAddressEthSignerActionHandler);
-  bind(appTypes.EthSignerActionHandler).to(
-    VerifySafeAddressEthSignerActionHandler,
-  );
   bind(appTypes.EthSignerActionHandler).to(SignMessageEthSignerActionHandler);
   bind(appTypes.EthSignerActionHandler).to(
     SignTransactionEthSignerActionHandler,
   );
   bind(appTypes.EthSignerActionHandler).to(SignTypedDataEthSignerActionHandler);
-  bind(appTypes.EthSignerActionHandler).to(
-    SignDelegationAuthorizationEthSignerActionHandler,
-  );
 });
